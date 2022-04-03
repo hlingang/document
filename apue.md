@@ -1,6 +1,6 @@
 # Unix 环境高级编程 #
 
-## 第一章 ##
+## 第一章 Unix 基础知识 ##
 
 ### 不带缓冲的IO接口 ###
 1. open
@@ -54,6 +54,7 @@
 1. 日历时间 - 自世界协调时间以来经历的秒数
 2. 进程时间 - （时钟时间, 用户CPU时间, 系统CPU时间)
 
+## 第二章 Unix 标准及实现 ##
 ### Linux 系统限制 ###
 1. 编译期 确定的限制
 2. 运行时 确定的限制
@@ -132,7 +133,7 @@
                 close(fd);
             }
 
-## 第三章 文件系统 ##
+## 第四章 文件系统 ##
 
 ### 文件（固有）详细信息 ###
 1. stat
@@ -200,7 +201,7 @@
     1) 文件类型
     2) 文件访问权限
     3) 指向文件实际存储位置的指针
-12. **目录项保存【文件名】和【i节点编号】**
+12. **目录项保存【文件名】和【i节点编号】用于文件索引**
 
 13. 文件访问时间和修改时间的更改
     1) *futimens(fd, timespes[2])*
@@ -230,6 +231,40 @@
                     printf("dname=%s\n", dirp->d_name);    
                 }
             }
+3. 切换目录
+    1) *chdir(file)* 只影响当前进程
+    2) *fchadir(fd)* 只影响当前进程
+    3) *chadirat(fd, file)* 只影响当前进程
+    4) *getcwd(buf, size)* 
+
+### 设备号 ###
+1. 设备号包含主设备号(**驱动程序**)和次设备号(**特定子设备**)
+2. 块特殊设备和字符特殊设备包含两个设备号, 文件系统设备号(st_dev)和实际设备号(st_rdev)
+
+        #include <unistd.h>
+        #include <stdio.h>
+        #include <dirent.h>
+        #include <sys/stat.h>
+        #include <sys/sysmacros.h>
+        int main()
+        {
+            DIR* dp = opendir("./"); // 获取目录流对象
+            struct dirent* dirp = NULL;
+            struct stat pstat;
+            while((dirp = readdir(dp))!=NULL) // 获取目录项包含的文件
+            {
+                stat(dirp->d_name, &pstat);  
+                if(S_ISCHR(pstat.st_mode)||S_ISBLK(pstat.st_mode))
+                {
+                    printf("%10s dev(%d/%d), rdev(%d/%d)\n", dirp->d_name, major(pstat.st_dev), minor(pstat.st_dev), major(pstat.st_rdev), minor(pstat.st_rdev));    
+                }
+                else
+                {
+                    printf("%10s dev(%d/%d)\n", dirp->d_name, major(pstat.st_dev), minor(pstat.st_dev));    
+                }
+            }
+        }
+
 
 
 
