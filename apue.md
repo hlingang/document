@@ -265,6 +265,113 @@
             }
         }
 
+### 粘着位 ###
+粘着位可以使程序运行结束后正文段仍然保留在交换区(swap), 后续运行时无需重复加载
+
+## 第五章 标准 IO 库 ##
+
+### 文件流对象（FILE 对象) ###
+1. 一个FILE 对象至少包含: 指向特定文件的描述符, 缓冲区地址
+2. 文件流的定向
+    #### *fwide(FILE, mode)* ####
+    1) mode < 0: 设置位字节定向
+    2) mode > 0: 设置位宽定向
+    3) mode = 0: 不设置
+3. 标准输入输出流对象(stdio.h)
+    1) stdin
+    2) stdout
+    3) stderr
+### 缓冲 ###
+1. 三种缓冲类型
+    1) 全缓冲 _IOFBF
+    2) 行缓冲 _IOLBF
+    3) 无缓冲 _IONBF
+2. 改变缓冲类型
+    1) *setbuf(FILE, buf)* buffer 长度为预定义的 **BUFSIZ**
+    2) *setvbuf(FILE, buf, mode, size)*
+3. 冲洗缓冲区
+    1) *fflush(FILE)* **若FILE指向NULL, 则刷新所有输出流**
+4. 打开流对象
+    1) *FILE fopen(file, mode)*
+    2) *FILE freopen(file, mode, oldfile)*
+    3) *FILE fdopen(fd, mode)*
+    4) *int fclose(FILE \*fp)*  **关闭流**
+
+            mode 参数详解
+            1. r/rb: O_IRD
+            2. w/wb: O_IWR
+            3. r+/rb+: O_RDWR
+            4. w+/wb+: O_RDWR|O_TRUNC|O_CREAT
+            5. a+/ab+: O_RDWR|O_APPEND|O_CREAT
+            6. **在fd上打开的时候无法截断文件**
+
+### 流对象的读写 ###
+1. 单字节 IO 读写
+    1) *getc(FILE fp)*  **宏定义**
+    2) *fgetc(FILE fp)*  **函数**
+    3) *getchar(void)*
+    4) *put(c, FILE fp)*  **宏定义**
+    5) *fput(c, FILE fp)*  **函数**
+    6) *putchar(c)*
+    7) *unget(c)*
+2. 文件尾端的判断
+    1) *ferror(FILE fp)*  **判断是否出错**
+    2) *feof(FILE fp)*  **判断是否到达文件尾端**
+
+3. 行 IO 读写
+    1) *fgets(buf, size, FILE fp)* **buf必须以null结尾**
+    2) *fputs(buf, FILE fp)* **buf必须以null结尾**
+    3) *gets(buf)*  **不推荐使用**
+    4) *puts(buf)*  **不推荐使用**
+
+4. 二进制 IO 
+    1) *fwrite(buf, objsize, objcount, FILE fp)* **返回objcount**
+    2) fread(buf, objsize, objcount, FILE fp)* **返回objcount**
+
+### 流的定位 ###
+1. *long ftell(FILE fp)*  **返回fp当前偏移量**
+2. *int fseek(FILE fp, long offset, int whence)*
+3. *frewind(fp)*  **重置fp**
+
+### 格式化 IO ###
+1. *sprintf(buf, format, ##__VA_ARGS__)*
+1. *snprintf(buf, size, format, ##__VA_ARGS__)*
+3. *printf(format, ##__VA_ARGS__)*
+
+### 创建临时文件 ###
+1. *char \*tmpnam(char \*ptr)*
+2. *FILE \*tmpfile(void)*
+3. *char\* mkdtemp(char \*template)*  **推荐使用**
+4. *int mkstemp(char \*template)*  **推荐使用**
+
+        #include <stdio.h>
+        #include <stdlib.h>
+        #include <unistd.h>
+        int main() {
+        char dtemp[] = "/tmp/dirXXXXXX";
+        char stemp[] = "/tmp/fileXXXXXX";
+        char *ptr = mkdtemp(dtemp);
+        if (ptr == NULL) {
+            printf("make temp dir fail\n");
+        } else {
+            printf("make dir %s\n", ptr);
+        }
+        int fd = mkstemp(stemp);
+        if (fd < 0) {
+            printf("make temp file fail\n");
+        } else {
+            printf("make temp file %s(fd=%d)\n", stemp, fd);
+        }
+        close(fd);
+        }
+
+
+
+
+
+
+
+
 
 
 
