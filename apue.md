@@ -93,9 +93,9 @@
 3. *dup, dup2* 函数用于文件描述符的复制
 
 ### 缓冲区数据的冲洗 ###
-1. *fsync(fd)* 刷新特定的文件描述符缓冲区
-2. *fsyncdata(fd)* 刷新特定的文件描述符缓冲区
-3. *sync(void)*  刷新所有缓冲区
+1. *fsync(fd)* 刷新特定的文件描述符缓冲区 **刷新内核缓冲区(从内核缓冲区写入物理媒介)**
+2. *fsyncdata(fd)* 刷新特定的文件描述符缓冲区  **刷新内核缓冲区(从内核缓冲区写入物理媒介)**
+3. *sync(void)*  刷新所有缓冲区  **刷新内核缓冲区(从内核缓冲区写入物理媒介)**
 
 ### 修改文件状态标志 ###
 1. *fcntl(fd, cmd, arg)*
@@ -290,7 +290,7 @@
     1) *setbuf(FILE, buf)* buffer 长度为预定义的 **BUFSIZ**
     2) *setvbuf(FILE, buf, mode, size)*
 3. 冲洗缓冲区
-    1) *fflush(FILE)* **若FILE指向NULL, 则刷新所有输出流**
+    1) *fflush(FILE)* **若FILE指向NULL, 则刷新所有输出流 刷新用户缓冲区(从用户缓冲区写入内核缓冲区)**
 4. 打开流对象
     1) *FILE fopen(file, mode)*
     2) *FILE freopen(file, mode, oldfile)*
@@ -344,36 +344,88 @@
 3. *char\* mkdtemp(char \*template)*  **推荐使用**
 4. *int mkstemp(char \*template)*  **推荐使用**
 
+        #include <pwd.h>
         #include <stdio.h>
-        #include <stdlib.h>
         #include <unistd.h>
         int main() {
-        char dtemp[] = "/tmp/dirXXXXXX";
-        char stemp[] = "/tmp/fileXXXXXX";
-        char *ptr = mkdtemp(dtemp);
-        if (ptr == NULL) {
-            printf("make temp dir fail\n");
+            struct passwd *pw;
+            pw = getpwuid(0);
+            if (pw == NULL) {
+                printf("get pw by uid fail\n");
+                return -1;
+            } else {
+                printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
+            }
+            pw = getpwnam("huanglingang");
+            if (pw == NULL) {
+                printf("get pw by name fail\n");
+                return -1;
+            } else {
+                printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
+            }
+        }
+
+## 第六章 系统数据文件和信息 ##
+
+### 获取用户详细信息 <passwd.h> ###
+1. struct passwd\* *getpwuid(uid)*  **通过uid 获取对应的口令文件详细信息**
+2. struct passwd\* *getpwnam(char \*name)*  **通过user name获取对应的口令文件详细信息**
+
+        #include <pwd.h>
+        #include <stdio.h>
+        #include <unistd.h>
+        int main() {
+        struct passwd *pw;
+        pw = getpwuid(0);
+        if (pw == NULL) {
+            printf("get pw by uid fail\n");
+            return -1;
         } else {
-            printf("make dir %s\n", ptr);
+            printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
         }
-        int fd = mkstemp(stemp);
-        if (fd < 0) {
-            printf("make temp file fail\n");
+        pw = getpwnam("huanglingang");
+        if (pw == NULL) {
+            printf("get pw by name fail\n");
+            return -1;
         } else {
-            printf("make temp file %s(fd=%d)\n", stemp, fd);
+            printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
         }
-        close(fd);
         }
 
+### 获取操作系统详细信息 <sys/utsname.h> ###
+1. *int uname(struct utsname\* name)*
 
+### 时间和日期的获取 ###
+1. *time_t time(time_t \*time_ptr)*  **日历时间<time.h>**
+2. *clock_gettime(CLOCK_ID, timespec \*tsp)* **日历时间<sys/time.h>**
+3. *gettimeofday(struct timeval \*tp, NULL)*  **不推荐使用**
 
+### 日历时间和分解时间的转换 ###
+1. *struct tm\* localtime(time_t \*calptr)*
+2. *struct tm\* gmtime(time_t \*calptr)*
+3. *time_t mktime(struct tm\* tmptr)*
 
-
-
-
-
-
-
-
-
-
+### 时间和日期的格式化 ###
+1. *strftime(buf, size, format, struct tm\* tmptr)*
+        #include <stdio.h>
+        #include <sys/time.h>
+        #include <sys/utsname.h>
+        #include <time.h>
+        #include <unistd.h>
+        int main() {
+            struct tm* tmptr;
+            time_t caltime;
+            struct timeval caltimeval;
+            struct timespec caltimespec;
+            caltime = time(NULL);
+            time(&caltime);
+            gettimeofday(&caltimeval, NULL);
+            clock_gettime(CLOCK_REALTIME, &caltimespec);
+            printf("caltime01=%ld\n", caltime);
+            tmptr = localtime(&caltime);
+            char buf[128] = {0};
+            strftime(buf, sizeof(buf), "%Y:%m:%d:%H:%M:%S(%A %B)", tmptr);
+            caltime = mktime(tmptr);
+            printf("date:%s\n", buf);
+            printf("caltime02=%ld\n", caltime);
+        }
