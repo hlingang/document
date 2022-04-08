@@ -429,3 +429,64 @@
             printf("date:%s\n", buf);
             printf("caltime02=%ld\n", caltime);
         }
+
+
+## 第七章 进程环境 ##
+
+### 进程退出前的清理工作 ###
+1. *int atexit(void (\*func)(void))*;
+    1) 注册进程退出前的清理函数
+    2) 调用顺序与注册顺序相反
+    3) 同一函数可以登记多次(也会调用多次)
+### 全局环境变量 ###
+1. *extern char\* environ*
+2.  环境变量以key=value 的字符串形式存在
+3. 环境变量的操作
+    1) *char\* getenv(char \*)*
+    2) *int putenv(char \*)*
+
+            #include <stdio.h>
+            #include <stdlib.h>
+            #include <unistd.h>
+            int main() {
+                char *ptr = getenv("PATH");
+                printf("PATH:%s\n", ptr);
+                putenv("TESTPATH=./");
+                ptr = getenv("TESTPATH");
+                printf("TESTPATH:%s\n", ptr);
+            }
+
+### 程序存储空间模型 ###
+1. 正文段(机器指令, 表现为共享, 只读) **低地址**
+2. 初始化数据段(函数外显式初始化全局变量)
+2. 未初始化数据段(未显式初始化全局变量, 内核负责初始化)
+3. 堆空间
+4. 栈空间  **高地址**
+
+### 动态空间分配 ###
+1. *void\* malloc(size)*
+2. *void\* calloc(nobj, objsize)*
+3. *void\* realloc(void\* ptr, size)*
+4. void free(void\* ptr)*
+
+### 进程资源限制的调整 <sys/resource.h>###
+1. *int getrlimit(RESOURCE, struct rlimit\* rptr)*
+2. *int setrlimit(RESOURCE, struct rlimit\* rptr)*
+
+        struct rlimit
+        {
+            rlim_t rlim_cur; //soft limit(rlim_t=lu)
+            rlim_t rlim_max; //hard limit(rlim_t=lu)
+        }
+        #include <stdio.h>
+        #include <stdlib.h>
+        #include <sys/resource.h>
+        #include <unistd.h>
+        int main() {
+            struct rlimit rlimits;
+            getrlimit(RLIMIT_CPU, &rlimits);
+            printf("soft limit:%lu\n", rlimits.rlim_cur);
+            printf("hard limit:%lu\n", rlimits.rlim_max);
+        }
+
+
