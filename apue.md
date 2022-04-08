@@ -469,7 +469,7 @@
 3. *void\* realloc(void\* ptr, size)*
 4. void free(void\* ptr)*
 
-### 进程资源限制的调整 <sys/resource.h>###
+### 进程资源限制的调整 <sys/resource.h> ###
 1. *int getrlimit(RESOURCE, struct rlimit\* rptr)*
 2. *int setrlimit(RESOURCE, struct rlimit\* rptr)*
 
