@@ -489,4 +489,74 @@
             printf("hard limit:%lu\n", rlimits.rlim_max);
         }
 
+## 第八章 进程控制 ##
+
+### 进程标识 ###
+1. 交换进程 ID=0, 属于内核系统进程
+2. init 进程 ID=1, 属于普通用户进程, 负责启动系统服务
+3. 获取进程标识
+    1) *pid_t getpid()*
+    2) *pid_t getppid()*
+    3) *uid_t getuid()*
+    4) *uid_t getpuid()*
+    5) *gid_t getgid()*
+
+### 创建进程 ###
+1. *pid_t fork()*  **创建子进程, 返回子进程ID
+
+### 父进程和子进程间的文件共享 ###
+1. 父进程和子进程共享相同的文件表项
+2. 父进程和子进程共享相同的文件偏移量
+3. 父进程的重定向会同时反映到子进程
+
+### 进程的退出 ###
+1. exit 退出进程时返回进程的退出状态码, 同时刷新所有缓冲流
+
+### 等待进程结束<sys/wait> ###
+1. *pid_t wait(int \*statptr)* **阻塞方式等待任意进程结束**
+2. *pid_t waitpid(pid, int \*statptr, int option)* **阻塞或非阻塞方式(option)等待特定进程结束**
+
+### 执行程序 ###
+1. *execl* **列表方式传参**
+    1) *execl(path, arg0, arg1,..., (void\*)0)*
+    2) *execlp(file, arg0, arg1,..., (void\*)0)*
+    3) *execle(path, arg0, arg1,..., (void\*)0, char\* env[])*
+2. *execv* **数组方式传参**
+    1) *execv(path, char\* argv[])*
+    2) *execvp(file, char\* argv[])*
+    3) *execve(path, char\* argv[], char\* env[])*
+
+### 更改用户id和组id ###
+1. *int setuid(uid_t uid)*
+2. *int setgid(gid_t gid)*
+
+### system 函数 ###
+1. *int system(char\* cmd)* **先调用fork创建子进程, 然后执行程序**
+
+### 获取登录用户名 ###
+1. *char \*getlogin(void)* **返回当前登录用户名**
+
+### 进程调度 ###
+1. *int nice(int incr)*  **incr为nice值得增量, 返回新的nice值**
+
+### 进程时间 <sys/times.h> ###
+1. *clock_t times(tms\* tmsptr)*
+
+        struct tms
+        {
+            clock_t tms_utime; 用户CPU时间
+            clock_t tms_stime; 系统CPU时间
+            clock_t tms_cutime; 已结束子进程用户CPU时间
+            clock_t tms_cstime; 已结束子进程系统CPU时间
+        }
+
+
+
+
+
+
+
+
+
+
 
