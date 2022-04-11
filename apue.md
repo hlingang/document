@@ -550,6 +550,93 @@
             clock_t tms_cstime; 已结束子进程系统CPU时间
         }
 
+## 第九章 进程关系 ##
+
+### 获取进程组ID ###
+1. *pid_t getpgrp(void)*
+2. *pid_t getgpid(pid_t pid)*  **pid=0时， 返回调用进程的进程组ID**
+
+### 孤儿进程 ###
+1. 父进程已经终止的子进程, 会被init进程收养, 成为孤儿进程
+
+## 第十章 信号 ##
+
+### Unix 信号的概念 ###
+1. 信号属于软中断, 用于进程间的通信
+
+### 信号处理的方式 ###
+1. 忽略信号(SIGKILL, SIGSTOP除外)
+2. 捕获信号(用户定义信号处理行为, SIGKILL,SIGSTOP除外)
+3. 默认处理(终止进程)
+
+### 信号注册函数 ###
+1. *void (\*signal(SIGNO, void (\*func)(int)))(int)*  **返回handler 函数指针**
+
+### 信号捕获的限制 ###
+1. 信号捕获函数仅仅在当前进程的当前程序里面有效
+2. fork 创建的子进程会继承父进程的信号处理方式
+
+### 信号的阻塞 ###
+1. 当信号发生时, 并不忽略此信号, 但是等到系统准备好了再来处理此信号
+2. 信号屏蔽字决定进程需要阻塞的所有信号
+
+### 信号发送 ###
+1. *kill(pid, signo)* **向特定进程发送信号**
+    1) pid > 0, 发送给指定的pid进程
+    1) pid = 0, **发送当前进程组的所有进程**
+    2) pid = -1, **发送给所有进程**
+    3) pid < -1, 发送给进程组绝对值为pid的所有进程
+2. *raise(signo)*  **向当前进程发送信号**
+    1) raise(signo) = kill(getpid(), signo)
+
+### 闹钟和休眠 ###
+1. *unsigned int alarm(secons)*
+    1) 该函数返回 0 或者之前的闹钟余留的时间秒数
+2. *int pause(void)* **返回-1**
+    1) 进程陷入休眠, 并阻塞, 直到进程收到任意信号后并处理完成后返回(-1, errno=EINTR)
+
+### 信号集 和 信号屏蔽 ###
+1. *sigemptyset(sigset_t\* sigset)* **清空信号集**
+2. *sigfillset(sigset_t\* sigset)* **默认初始化信号集**
+3. *sigaddset(sigset_t\* sigset, int signo)*
+4. *sigdelset(sigset_t\* sigset, int signo)*
+5. *int sigprocmask(int how, sigset_t\* set, sigset_t\* oldset)*
+    1) how=SIG_BLOCK 阻塞信号
+    2) how=SIG_UNBLOCK  解除阻塞信号
+    3) how=SIG_SETMASK 重新设置信号屏蔽字
+
+### 获取屏蔽信号集 ###
+1. *int sigpending(sigset_t\* set)*
+
+### 阻塞等待特定信号发生 ###
+1. *int sigsuspend(sigset_t set)* **捕获到特定信号后返回-1**
+    1) 设置新的信号屏蔽字并且等待特定信号, 返回前设置原来的信号屏蔽字
+
+### abort 函数 ###
+1. *void abort(void)* **向调用进程发送SIGABORT 信号
+2. 等效于 *raise(SIGABORT)*
+
+### sleep 函数 ###
+1. *unsigned int sleep(unsigned int seconds)* **返回0或者未休眠完的时间秒数
+2. *unsigned int usleep(unsigned int us)* **返回0或者未休眠完的时间微秒数
+3. *int nanosleep(timespec \*ptr, timespec\* temptr)*
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

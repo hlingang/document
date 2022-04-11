@@ -7,4 +7,5 @@ int main() {
     getrlimit(RLIMIT_CPU, &rlimits);
     printf("soft limit:%lu\n", rlimits.rlim_cur);
     printf("hard limit:%lu\n", rlimits.rlim_max);
+    usleep(10);
 }
