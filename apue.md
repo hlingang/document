@@ -619,7 +619,14 @@
 ### sleep 函数 ###
 1. *unsigned int sleep(unsigned int seconds)* **返回0或者未休眠完的时间秒数
 2. *unsigned int usleep(unsigned int us)* **返回0或者未休眠完的时间微秒数
-3. *int nanosleep(timespec \*ptr, timespec\* temptr)*
+3. *int nanosleep(timespec \*ptr, timespec\* temptr)* **返回0或者-1, temptr 指向未休眠的时间数
+4. *int clock_nanosleep(clock_id, flag, timespec \*ptr, timespec\* temptr)
+
+### 信号的打印 ###
+1. *void psignal(signo, msg)* **类似于 perror
+2. *void psiginfo(const siginfo_t \*info, const char \*msg)*
+3. char \*strsignal(signo)*
+
 
 
 
