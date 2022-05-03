@@ -627,6 +627,108 @@
 2. *void psiginfo(const siginfo_t \*info, const char \*msg)*
 3. char \*strsignal(signo)*
 
+## 第十一章 线程 ##
+
+### 线程的概念 ###
+1. 线程是微进程
+2. 同一进程的所有线程共享相同的进程空间地址
+3. 多线程的特征: **按事件类别进行异步处理** 
+4. 即使在单处理器上也能发挥优势
+
+### 线程id操作 ###
+1. 线程id比较: *pthread_equal(pthread_t t1, pthread_t t2)*
+2. 获取当前线程id: *pthread_self()*
+
+### 创建线程 ###
+1. pthread_create(\*thread_id, \*attr, (void\*)callback, void \*args)*
+
+### 线程的终止及退出状态的访问 ###
+1. *pthread_exit(void \*status_ptr)*
+2. *pthread_join(tid, \*status_ptr)*
+
+### 请求取消线程 ###
+1. *pthread_cancel(tid)* **请求取消同一进程的某个线程(不等待线程取消)**
+
+### 线程退出时的清理 ###
+1. *pthread_cleanup_push(void (func\*)(void \*args), void\* args)* **注册**
+2. *void pthread_cleanup_pop(int execute)* **清理注册**
+
+        #include <pthread.h>
+        #include <stdio.h>
+        #include <unistd.h>
+
+        void clean() { printf("pthread clean\n"); }
+        void *func(void *args) {
+            pthread_cleanup_push(clean, NULL);
+            printf("pthread start\n");
+            sleep(5);
+
+            printf("pthread exit\n");
+            pthread_exit(NULL);     // 退出线程
+            pthread_cleanup_pop(0); //清理注册(一定要在线程退出后)
+        }
+        int main() {
+            pthread_t tid;
+            pthread_create(&tid, NULL, func, NULL);
+            pthread_join(tid, NULL);
+        }
+
+### 互斥量(同步锁mutex) ###
+1. 避免死锁的条件 **所有线程遵循尽量遵循相同资源(互斥量)访问顺序**
+2. *pthread_mutex_init(\*mutex, attr)*
+3. *pthread_mutex_destory(\*mutex)*
+
+### 互斥量加锁 ###
+4. *pthread_mutex_lock(\*mutex)*
+5. *pthread_mutex_trylock(\*lock)* **非阻塞加锁**
+5. *pthread_mutex_timedlock(\*lock, \*timespec)* **timeout时间前(绝对时间)阻塞加锁**
+6. *pthread_mutex_unlock(\*lock)*
+
+### 读写锁 ###
+1. 读写锁允许多种加锁状态, 提供更多同步状态控制(读锁/写锁/无锁)，**读锁和写锁互斥**
+2. *pthread_rwlock_init(\*rwlock, pthread_rwlockattr_t\* attr)*
+3. *pthread_rwlock_rdlock(\*rwlock)*
+4. *pthread_rwlock_wrlock(\*rwlock)*
+5. *pthread_rwlock_timedrdlock(\*rwlock, \*timespec)*
+6. *pthread_rwlock_timedwrlock(\*rwlock, \*timespec)*
+7. *pthread_rwlock_unlock(\*rwlock)*
+
+        #include <pthread.h>
+        #include <stdio.h>
+        #include <unistd.h>
+
+        int main() {
+            pthread_rwlock_t rwlock;
+            pthread_rwlock_init(&rwlock, NULL);
+            pthread_rwlock_rdlock(&rwlock);
+            sleep(1);
+
+            int ret = pthread_rwlock_rdlock(&rwlock); // 不阻塞
+            // pthread_rwlock_wrlock(&rwlock); // 阻塞
+            printf("ret=%d\n", ret);
+        }
+
+### 条件变量 ###
+1. 条件变量必须和互斥量一起使用, 实现无竞争的同步
+2. *pthread_cond_init(\*pthread_cond_t, \*pthread_condattr_t)*
+3. *pthread_cond_wait(\*pthread_cond_t, \*mutex)*
+4. *pthread_cond_wait(\*pthread_cond_t, \*mutex)*
+5. *pthread_cond_timedwait(\*pthread_cond_t, \*mutex, \*timespec)* 
+**timeout 时间为绝对时间**
+6. *pthread_cond_signal(\*pthread_cond_t)* **通知其中一个线程**
+7. *pthread_cond_broadcast(\*pthread_cond_t)* **通知所有线程**
+8. *pthread_cond_destroy(\*pthread_cond_t)*
+
+### 自旋锁 ###
+1. 自旋锁在等待的时候不会休眠, 而是一直处于忙等状态(自旋状态)
+
+### 屏障 ###
+1. 用于等待多个其他线程完成某一个动作(由线程计数参数指定)
+2. *pthread_barrier_init(\*pthread_barrier_t, pthread_barrierattr_t \*attr, unsigned int count)* **等待的线程数**
+3. *pthread_barrier_wait(pthread_barrier_t \*barrier)*
+4. *pthread_barrier_destroy(pthread_barrier_t \*barrier)*
+
+
 
 
 

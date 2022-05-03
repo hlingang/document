@@ -1,11 +1,14 @@
+#include <pthread.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <sys/resource.h>
 #include <unistd.h>
+
 int main() {
-    struct rlimit rlimits;
-    getrlimit(RLIMIT_CPU, &rlimits);
-    printf("soft limit:%lu\n", rlimits.rlim_cur);
-    printf("hard limit:%lu\n", rlimits.rlim_max);
-    usleep(10);
+    pthread_rwlock_t rwlock;
+    pthread_rwlock_init(&rwlock, NULL);
+    pthread_rwlock_rdlock(&rwlock);
+    sleep(1);
+
+    int ret = pthread_rwlock_rdlock(&rwlock); // 不阻塞
+    // pthread_rwlock_wrlock(&rwlock); // 阻塞
+    printf("ret=%d\n", ret);
 }
