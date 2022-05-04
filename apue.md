@@ -729,30 +729,49 @@
 4. *pthread_barrier_destroy(pthread_barrier_t \*barrier)*
 
 
+## 第十二章 线程属性 ##
 
+### 线程属性 ###
+1. *pthread_attr_init(pthread_attr_t \* attr)*
+2. *pthread_attr_getdetachstate(pthread_attr_t \* attr, int \*detachstate)*
+3. *pthread_attr_setdetachstate(pthread_attr_t\* attr, int \*detachstate)*
+4. *pthread_attr_destroy()*
 
+### 同步属性 ###
 
+#### 互斥量属性 #### 
+1. *pthread_mutexattr_init(pthread_mutexattr_t\*)*
 
+2. *pthread_mutexattr_gettype(pthread_mutexattr_t\*, int \*type)* **类型属性**
+3. *pthread_mutexattr_settype(pthread_mutexattr_t\*, int type)* **类型属性**
 
+4. *pthread_mutexattr_getpshared(pthread_mutexattr_t\*, int \*pshared)* **进程共享属性**
+5. *pthread_mutexattr_getpshared(pthread_mutexattr_t\*, int pshared)* **进程共享属性**
 
+6. *pthread_mutexattr_getrobust(pthread_mutexattr_t\*, int \*robust)* **健壮性属性**
+7. *pthread_mutexattr_setrobust(pthread_mutexattr_t\*, int robust)* **健壮性属性**
 
+8. *pthread_mutexattr_destroy()*
 
+#### 读写锁属性 ####
+1. 读写锁属性支持唯一的属性 -> 进程共享属性
 
+#### 条件变量属性 ####
+1. 进程共享属性
+2. 时钟属性
 
+#### 屏障属性 ####
+1. 屏障属性支持唯一的属性 -> 进程共享属性
 
+### 线程信号屏蔽 ###
+1. *pthread_sigmask(how, sigset, oldset)* 
+    1) **SIG_BLOCK** 添加屏蔽信号
+    2) **SIG_SETMASK** 重新设置屏蔽信号
+    3) **SIG_UNBLOCK** 删除屏蔽信号
+2. *sigwait(sigset, int\* sigcount)*
 
-
-
-
-
-
-
-
-
-
-
-
-
+### 向特定线程发送信号 ###
+1. *pthread_kill(tid, signo)*
 
 
 
