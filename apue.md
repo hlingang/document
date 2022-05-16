@@ -774,4 +774,22 @@
 1. *pthread_kill(tid, signo)*
 
 
+## 第十二章 守护进程 ##
+
+### 系统守护进程 ###
+1. 守护进程没有控制终端, 时钟在后台运行, 直到系统关闭
+2. 常见的系统守护进程
+    1) 缓存刷新
+    2) 系统log记录
+    3) 系统定时任务
+3. 特殊的守护进程
+    1) 0 进程: 内核进程
+    2）1 进程(init)进程, 用户进程, 负责启动其他服务
+
+### 文件锁<stdio.h> ###
+1. *int flockfile(FILE\* fd)*
+2. *int ftrylockfile(FILE\* fd)*
+3. *int funlockfile(FILE\* fd)*
+
+
 
