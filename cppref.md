@@ -266,6 +266,166 @@
 
 ## C++ 容器 ##
 ### <array> ###
+1. 声明时候必须确定类型和大小
+2. 支持复制, 不支持动态扩展
+#### 方法 ####
+1. *size()*
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *data* **指向数据的指针**
+
+### <vector> ###
+1. 支持在尾部添加和删除元素
+#### 方法 ####
+1. *size()*
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *data* **指向数据的指针**
+6. *insert*
+7. *erase*
+8. *push_back*
+9. *pop_back*
+
+### <deque> 双端队列 ###
+1. 支持双端元素的添加和删除
+2. 容量支持动态扩展
+
+#### 方法 ####
+1. *size()*
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *erase*
+
+### <forward_list> 单向链表 ###
+1. 单向链表只保存 header 信息
+2. 原生单向链表, 不包含*size方法*
+3. 支持前端添加和删除元素
+4. 普通插入元素的时候只能在指定位置的后面插入元素
+
+#### 方法 ####
+2. *empty()*
+3. *begin/cbegin*
+4. *end/cend*
+5. *insert_after* **只能往后插入元素**
+6. *erase_after* 
+7. *push_front*
+8. *pop_front*
+9. *remove*      **删除特定值元素(不会真正删除)**
+10. *remove_if*  **删除满足条件的特定元素(不会真正删除)**
+11. *reverse*
+12. *unique*
+13. *sort*
+
+### <list> 双向链表 ###
+1. 双向链表保存header和tail,以及size信息
+2. 支持 *size 方法*
+3. 支持两端插入和删除元素
+#### 方法 ####
+1. *size()* 
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *insert* 
+6. *erase* 
+7. *push_front*
+8. *pop_front*
+9. *push_back*
+10. *pop_back*
+11. *remove*      
+12. *remove_if*  
+13. *reverse*
+14. *unique*
+15. *sort*
+
+### <map> 字典(自动排序) ###
+1. 支持 *size 方法*
+2. 元素自动排序
+3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
+#### 方法 ####
+1. *size()* 
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *insert* **只能往后插入元素**
+6. *erase* 
+7. *count*
+8. *find*
+
+### <set> 集合(自动排序) ###
+1. 支持 *size 方法*
+2. 元素自动排序
+3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
+#### 方法 ####
+1. *size()* 
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *insert* **只能往后插入元素**
+6. *erase* 
+7. *count*
+8. *find*
+
+### <unoredered_map> 字典(无序) ###
+1. 支持 *size 方法*
+#### 方法 ####
+1. *size()* 
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *insert* **只能往后插入元素**
+6. *erase* 
+7. *count*
+8. *find*
+
+### <unordered_set> 集合(无序) ###
+1. 支持 *size 方法*
+#### 方法 ####
+1. *size()* 
+2. *empty()*
+3. *begin/cbegin/rbegin*
+4. *end/cend/rend*
+5. *insert* **只能往后插入元素**
+6. *erase* 
+7. *count*
+8. *find*
+
+### <algorithm>  ###
+#### 帅选 ####
+1. *all_of* **刷选器**
+2. *any_of* **刷选器**
+3. *none_of* **刷选器**
+4. *for_each*
+5. *for_each_n*
+#### 查找 ####
+6. *count* **查找具体值**
+7. *count_if* **查找条件**
+8. *find* **查找具体值**
+9. *find_if*  **查找条件**
+10. *find_if_not*  **查找条件**
+11. *find_first_of* **查找集合中的任意一个元素**
+12. *copy*
+13. *copy_if*
+14. *copy_n*
+15. *fill*
+16. *fill_n*
+17. *remove*
+18. *remove_if*
+19. *replace*
+20. *replace_if*
+21. *transform*
+22. *reverse*
+23. *shuffle*
+24. *unique*
+25. *sort*
+26. *stable_sort*
+
+
+
+
+
 
 
 
