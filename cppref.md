@@ -422,6 +422,132 @@
 25. *sort*
 26. *stable_sort*
 
+### <numeric> 数值计算 ###
+1. *reduce*
+2. *accumulate*
+
+### <ratio> 有理分数 ###
+1. *ration<1, 1000>*
+
+### <numbers> 数学常量 ###
+1. *e*
+2. *pi*
+
+### <ios> ###
+1. ios 基类定义
+2. 提供ios类最基本的管理接口
+#### 流状态管理 ####
+1. *good*
+2. *fail*
+3. *bad*
+4. *eof*
+#### opcode 管理 ###
+1. *ios::out*
+2. *ios::in*
+3. *ios::app*
+4. *trunc*
+5. *binary*
+
+### <istream> (basic istream) ###
+#### 单字符操作 ####
+1. *get* **获取单个字符**
+2. *peek* **获取单个字符, 但是保留指针位置**
+3. *unget* **撤销取走的字符**
+4. *putback(c)* **向流中添加元素**
+
+#### 行操作 ####
+5. *getline* **获取一行**
+6. *read* **读取指定数量的字符**
+
+### 流定位 ###
+1. *seekg(offset, whence)*
+2. *tellg*
+
+### <ostream> (basic ostream) ###
+1. *endl* **\n**
+2. *ends* **\0**
+3. *flush* **刷新输出流**
+
+### <iostream> ###
+1. 标准输入输出流对象
+
+
+### <fstream> (继承自basic_iostream) ###
+1. 文件输入输出流(上层流对象)
+2. *ofstream/ifstream/fstream*
+#### 支持方法 ####
+1. *open* **绑定关联文件**
+2. *close* **解除关联文件绑定**
+3. *is_open* **判断是否绑定到文件**
+
+### <sstream> (继承自basic_iostream) 字符串流 ###
+#### 三类字符串流 ####
+1. *istingstream*
+2. *ostringstream*
+3. *stringstream*
+#### 支持方法 ####
+1. *str()* **从流对象返回字符串**
+2. *str("abc")* **设置流对象字符串**
+3. *rdbuf()* **返回底层字符对象的指针**
+
+### <iomanip> ###
+1. 拓展的输出格式化<setxxx>
+
+#### 支持方法 ####
+1. *setw*
+2. *setfill*
+3. *setbase*
+4. *setprecision* **有效位数**
+#### I/O格式化 (ios_basic方法) ####
+5. *std::left*
+6. *std::right*
+7. *fixed* **设置精度为小数点后的保留位数**
+8. *dec/otc/hex*
+9. *scientific*
+10. *hexfloat*
+11. *defaultfloat*
+
+### <cstdio> 缓冲I/O ###
+#### 类型定义 ####
+1. *fpos_t*
+2. *size_t*
+3. *NULL*
+4. *EOF*
+5. *BUFSIZ*  **默认缓冲区大小(8192)**
+6. *_IOFBF/_IOLBF/_IONBF* **三种缓冲类型**
+
+#### I/O 操作 ####
+1. *fopen*
+2. *freopen* **在已经打开的流上重新打开**
+3. *fclose*
+4. *fflush* **刷新对应的流**
+5. *setbuf* **z只能设置全缓冲或者无缓冲,并且缓冲区大小必须是BUFSZ**
+5. *setvbuf* **设置对应流缓冲类型和缓冲区大小**
+6. *fread/fwrite* **读写二进制数据块**
+7.  *fgetc/fputc* **单字节的读写**
+8. *getc/putc* **单字节读写(宏函数)*
+9. *fgets/fputs* **按行读写**
+10. *scanf/fscanf*
+11. *printf/fprintf*
+12. *ftell* **返回偏移量**
+13. *fseek* **设置偏移量**
+14. *rewind* **重置偏移量**
+15. *ferror* **错误检查**
+16. *feof* **文件尾端检查**
+17. *perror* **打印errno错误信息**
+
+#### 文件操作 ####
+1. *tmpnam* **获取一个临时文件名(随机文件名,部分随机或者完全随机)**
+2. *tmpfile* **由临时文件名生成临时文件**
+3. *mkdtemp* **替代接口, 直接按pattern创建临时目录**
+4. *mkstmp*  **替代接口, 创建按pattern创建临时文件**
+
+
+
+
+
+
+
 
 
 

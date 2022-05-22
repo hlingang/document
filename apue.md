@@ -341,28 +341,21 @@
 ### 创建临时文件 ###
 1. *char \*tmpnam(char \*ptr)*
 2. *FILE \*tmpfile(void)*
-3. *char\* mkdtemp(char \*template)*  **推荐使用**
-4. *int mkstemp(char \*template)*  **推荐使用**
+3. *char\* mkdtemp(char \*template)*  **按pattern创建临时目录(推荐使用)**
+4. *int mkstemp(char \*template)*  **按pattern创建临时文件(推荐使用)**
 
         #include <pwd.h>
         #include <stdio.h>
         #include <unistd.h>
         int main() {
-            struct passwd *pw;
-            pw = getpwuid(0);
-            if (pw == NULL) {
-                printf("get pw by uid fail\n");
-                return -1;
-            } else {
-                printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
-            }
-            pw = getpwnam("huanglingang");
-            if (pw == NULL) {
-                printf("get pw by name fail\n");
-                return -1;
-            } else {
-                printf("pw-name:%s(%d:%d)\n", pw->pw_name, pw->pw_uid, pw->pw_gid);
-            }
+            schar dir[] = "/dev/shm/dirXXXXXX";
+            char file[] = "/dev/shm/fileXXXXXX";
+            char *ptr = mkdtemp(dir);
+            int fd = mkstemp(file); //创建文件并打开
+            printf("%s:\n", dir);
+            printf("%s:\n", file);
+            printf("fd:%d\n", fd);
+            close(fd);
         }
 
 ## 第六章 系统数据文件和信息 ##
