@@ -9,6 +9,7 @@
 6. *支持索引访问*
 
 ### <chrone> ###
+#### duration ###
 1. *std::ratio<a, b>* **单位时间刻度**
 2. *std::chrone::duration<int, ratio>* **时间长度**
     1) 刻度单位
@@ -17,6 +18,16 @@
 4. *std::chrone::seconds*
 5. *std::chrone::duration_cast<target_duration>(source_duration)*
 6. *std::chrone::system_clock::now()* **获取当前系统时间**
+
+#### time_point ####
+##### system_clock #####
+1. *now*
+2. *from_time_t*
+3. *to_time_t*
+##### steady_clock #####
+1. *now*
+##### high_resolution_clock #####
+1. *now*
 
 ### <csignal> ###
 1. signal 宏定义
@@ -541,6 +552,111 @@
 2. *tmpfile* **由临时文件名生成临时文件**
 3. *mkdtemp* **替代接口, 直接按pattern创建临时目录**
 4. *mkstmp*  **替代接口, 创建按pattern创建临时文件**
+5. *remove* **删除文件**
+6. *rename* **重命名文件**
+
+### <filesystem> ###
+#### path 类 ####
+1. path **路径描述类**
+2. path **类对象可以通过字符串创建**
+3. path 类对象可以处理目录、文件、扩展名的操作
+##### path 类支持的方法 #####
+1. root_name
+2. *root_directory*
+3. *root_path* **返回根路径**
+4. *relative_path* **返回相对根路径的相对路径**
+5. *parent_path* **返回当前路径的上一级路径**
+6. *filename* **返回文件名**
+7. *stem* **返回主干名(除扩展外的其他部分)**
+8. *extension* **返回扩展名**
+
+#### C++ 通用的文件操作方法(基于path对象) ###
+##### 文件操作 #####
+1. *current_path* **返回当前路径**
+2. *exists*       **判断文件是否存在**
+3. *file_size*    **返回文件大小**
+4. *read_symlink* **获取符号链接指向的目标值**
+5. *remove*       **删除文件**
+6. *remove_all*   **递归删除文件**
+7. *rename*       **重命名文件**
+8. *copy*         **复制文件/目录**
+9. *copy_file     **复制文件内容**
+10. *copy_symlink **复制符号链接**
+11. create_directory **创建目录**
+12. create_directories **创建多级目录**
+
+##### 文件类型判断 #####
+1. *is_block_file*
+2. *is_character_file*
+3. *is_directory*
+4. *is_empty*
+5. *is_fifo*
+6. *is_other*
+7. *is_regular_file*
+8. *is_socket*
+9. *is_symlink*
+10. *status_known*
+
+##### 文件的遍历 #####
+1. *directory_iterator(path&)* **获取指定路径下的文件列表对象**
+
+        #include<iostream>
+        #include<fstream>
+        #include<filesystem>
+        int main()
+        {
+            namespace fs = filesystem;
+            fs::create_directories("sandbox/a/b");
+            std::ofstream("sandbox/file1.txt");
+            std::ofstream("sandbox/file2.txt");
+            fs::directory_iterator it("sandbox");
+            for (auto &p : it)
+                std::cout << p.path() << endl;
+            fs::remove_all("sandbox");
+        }
+
+### <regex> ###
+#### 这则匹配相关的类 ####
+1. regex
+2. smatch/cmatch **match_results<string>**
+3. ssub_match **sub_match<string>**
+#### 正则匹配相关的函数 ####
+1. *regex_match*
+2. *regex_search*
+3. *regex_replace*
+
+### <atomic> ###
+1. 原子数据类型
+2. 数据维度的原子操作锁
+
+#### 常用的原子数据类型 ####
+1. atomic_bool
+2. atomic_int
+3. atomic_char
+4. atomic_long
+5. atomic_uint
+6. atomic_ulong
+
+### <thread> ###
+#### thread 类 ####
+1. *id* **共有成员**
+2. *get_id*
+3. *joinable*
+4. *join*
+5. *detach*
+6. *swap* **交换两个thread对象**
+#### this_thread ####
+1. *get_id()*
+2. *sleep_for(duration)*
+3. *sleep_until(time_point)*
+
+
+
+ 
+
+
+
+
 
 
 

@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstdlib>
 #include <cstring>
+#include <filesystem>
 #include <fstream>
 #include <functional>
 #include <iomanip>
@@ -10,12 +11,15 @@
 #include <map>
 #include <memory>
 #include <pthread.h>
+#include <regex>
 #include <set>
 #include <sstream>
 #include <stdio.h>
 #include <string>
 #include <unistd.h>
 #include <vector>
+
+void test(char *p) { printf("%s:\n", p); }
 using namespace std;
 
 int retry() {
@@ -41,7 +45,6 @@ int main() {
     for_each(a2.begin(), a2.end(), [](int val) { printf("val:%d\n", val); });
     cout << hex << 0xffffffffe1 << ", " << dec << 0xffffffffe1 << "  end "
          << endl;
-
     std::fstream out;
     out.open("001.txt", ios::out);
     printf("isopen:%d\n", out.is_open());
@@ -72,10 +75,22 @@ int main() {
         }
         ++iter;
     }
-    char dir[] = "/dev/shm/dirXXXXXX";
-    char file[] = "/dev/shm/fileXXXXXX";
-    mkdtemp(dir);
-    mkstemp(file);
-    printf("%s:\n", dir);
-    printf("%s:\n", file);
+
+    // 简单正则表达式匹配
+    std::string fnames[] = {"foo.txt", "bar.txt", "baz.dat", "zoidberg"};
+    std::regex txt_regex("(\\w+)");
+
+    for (const auto &fname : fnames) {
+        smatch match;
+        int ret = regex_search(fname, match, txt_regex);
+        if (ret) {
+            ssub_match submatch;
+            cout << "prefix :" << match.prefix() << endl;
+            cout << "suffix :" << match.suffix() << endl;
+            for (int i = 0; i < match.size(); i++) {
+                submatch = match[i];
+                cout << i << ":  " << submatch.str() << endl;
+            }
+        }
+    }
 }
