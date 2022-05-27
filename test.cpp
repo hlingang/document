@@ -6,6 +6,7 @@
 #include <filesystem>
 #include <fstream>
 #include <functional>
+#include <initializer_list>
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -18,6 +19,17 @@
 #include <string>
 #include <unistd.h>
 #include <vector>
+using namespace std;
+
+class MM {
+  public:
+    MM() { cout << "no" << endl; }
+    MM(initializer_list<int> li) {
+        for (auto val : li) {
+            cout << val << endl;
+        }
+    }
+};
 
 void test(char *p) { printf("%s:\n", p); }
 using namespace std;
@@ -93,4 +105,10 @@ int main() {
             }
         }
     }
+    vector<string> vs;
+    vs = vector<string>({"csv"});
+    for (auto val : vs) {
+        cout << val << endl;
+    }
+    MM mm({1, 2, 3});
 }

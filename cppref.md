@@ -650,6 +650,61 @@
 2. *sleep_for(duration)*
 3. *sleep_until(time_point)*
 
+### <mutex> ###
+#### 互斥量 ####
+1. mutex **普通锁**
+2. timed_mutex **限时锁**
+3. recursive_mutex **递归锁**
+
+#### 高级锁对象 ####
+1. lock_guard **通用锁**
+2. unique_lock **用于条件变量** 
+
+#### 锁对象的操作 ####
+1. *try_lock(lock0&, lock1&, lock2,...)*
+**依次加锁, 直到完成或加锁失败返回,成功返回-1，否则返回对应加锁失败的锁对象下标**
+2. *lock(lock0&, lock1&, lock2,...)*
+**依次加锁, 并且阻塞, 同时避免死锁**
+3. *call_once(once_flag& flag, func, args)*
+**仅调用一次**
+#### 限时锁提供额外操作方法 ####
+1. *try_lock_for*
+2. *try_lock_until*
+
+### semaphore ### 
+**信号量，通过许可的生产<release>和消费<acquire>来实现线程同步**
+**release和acquire可以在不同的线程独立进行,实现更精细的同步控制**
+1. *counting_semaphore*
+2. *binary_semaphore*
+
+#### 操作方法 ####
+1. *release* 
+2. *acquire* **block**
+3. *try_acquire* **no block**
+4. *try_acquire_for* **timed block**
+5. *try_acquire_until* **timed block**
+
+### <shared_mutex> ###
+**共享锁可以提供多种加锁状态**
+
+#### 两种共享锁 ####
+1. shared_mutex
+2. shared_timed_mutex*
+
+#### 操作方法 ####
+1. *lock*
+2. *try_lock*
+3. *unlock*
+4. *lock_shared*
+5. *try_lock_shared*
+6. *unlock_shared*
+
+
+
+
+
+
+
 
 
  
