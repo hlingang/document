@@ -1,22 +1,22 @@
 ## cpp header ##
 
-### <bitset> ###
-1. *bitset<n> bitset* **n位的bitset, 每个bit代表true和false
+### \<bitset\> ###
+1. *bitset\<n\> bitset* **n位的bitset, 每个bit代表true和false
 2. *bitset.reset()*
 3. *bitset.set(/*position, true*/)*
 4. *bitset.flip(/*position*/)*
 5. *支持与或非操作*
 6. *支持索引访问*
 
-### <chrone> ###
+### \<chrone\> ###
 #### duration ###
-1. *std::ratio<a, b>* **单位时间刻度**
-2. *std::chrone::duration<int, ratio>* **时间长度**
+1. *std::ratio\<a, b\>* **单位时间刻度**
+2. *std::chrone::duration\<int, ratio\>* **时间长度**
     1) 刻度单位
     2) 刻度计数
 3. *std::chrone::minutes*
 4. *std::chrone::seconds*
-5. *std::chrone::duration_cast<target_duration>(source_duration)*
+5. *std::chrone::duration_cast\<target_duration\>(source_duration)*
 6. *std::chrone::system_clock::now()* **获取当前系统时间**
 
 #### time_point ####
@@ -29,11 +29,11 @@
 ##### high_resolution_clock #####
 1. *now*
 
-### <csignal> ###
+### \<csignal\> ###
 1. signal 宏定义
 2. signal 操作函数
 
-### <cstdarg> ###
+### \<cstdarg\> ###
 1. 可变长参数操作
 2. *va_list args;*
 3. *va_start()*
@@ -58,12 +58,12 @@
             std::cout << add_nums(4, 25, 25, 50, 50) << '\n';
         }
 
-### <cstddef> ###
+### \<cstddef\> ###
 1. size_t long unsigned int
 2. byte (byte 类)
 3. *std::to_integer(byte)* **实现byte 到 integer 的转换**
 
-### <cstdlib> ###
+### \<cstdlib\> ###
 
 #### 宏定义 ####
 1. *size_t*  **long unsigned int**
@@ -90,7 +90,7 @@
 5. *strtod*
 6. *strtof*
 
-### <ctime> ###
+### \<ctime\> ###
 #### 时间相关数据结构 ####
 1. time_t **long int**
 2. struct tm **日历时间结构体**
@@ -127,7 +127,7 @@
         }
 
 
-### <functional> 函数对象 ###
+### \<functional\> 函数对象 ###
 1. *function* **通用函数对象的模板类**
 2. *plus*     **具体函数对象的模板类**
 3. *minus*
@@ -149,20 +149,20 @@
 4. *invok*  **调用函数**
 5. *invok_r* **调用函数(控制返回类型)**
 
-### <initializer_list> ###
+### \<initializer_list\> ###
 1. 用于自定义类的列表初始化
 
-### <optional> ###
+### \<optional\> ###
 1. 提供可选的target 值
 
-### <memory> ###
+### \<memory\> ###
 #### 职能指针 ####
 1. *unique_ptr*
 2. *shared_ptr*
 3. *make_shared*
 4. *make_unique*
 
-### <cstdint> ###
+### \<cstdint\> ###
 1. *int8_t*
 2. *int16_t*
 3. *int32_t*
@@ -176,10 +176,10 @@
 11. *intmax_t*
 12. *uintmax_t*
 
-### <csassert> ###
+### \<csassert\> ###
 1. assert((condition)) **宏函数**
 
-### <cerrno> ###
+### \<cerrno\> ###
 1. *errno* **线程安全的全局变量**
 2. *error 宏定义* 
 3. E2BIG
@@ -192,7 +192,7 @@
 10. EINTR
 11. EINVAL
 
-### <exception> 基本异常类 ###
+### \<exception\> 基本异常类 ###
 #### logic error ####
 1. *invalid_argument*
 2. *domain_error*
@@ -207,10 +207,10 @@
 4. *regex_error*
 5. *system_error*
 
-#### member function ####
+#### 支持方法 ####
 1. *e.what()* **返回异常描述**
 
-### <stdexcept> 由基本异常类继承而来的标准异常类 ###
+### \<stdexcept\> 由基本异常类继承而来的标准异常类 ###
 #### logic error ####
 1. *invalid_argument*
 2. *domain_error*
@@ -226,7 +226,7 @@
 5. *system_error*
 
 ## 字符/字符串相关 ##
-### <cctype> 单字符处理 ###
+### \<cctype\> 单字符处理 ###
 1. *isalnum* **checks if a character is alphanumeric**
 2. *isalpha* **checks if a character is alphabetic**
 3. *islower* **checks if a character is lowercase**
@@ -242,7 +242,7 @@
 13. *tolower* **converts a character to lowercase**
 14. *toupper* **converts a character to uppercase**
 
-### <string> c++字符串处理 ###
+### \<string\> c++字符串处理 ###
 1. *stoi*
 2. *stol*
 3. *stoll*
@@ -253,7 +253,7 @@
 8. *stold*
 9. *to_string(/\*int, float, double \*/)*
 
-### <cstring> C字符串处理 ###
+### \<cstring\> C字符串处理 ###
 #### 类型和宏定义 ####
 1. *NULL* 
 2. *size_t* **long unsiged int**
@@ -276,7 +276,7 @@
 5. *memchr*
 
 ## C++ 容器 ##
-### <array> ###
+### \<array\> ###
 1. 声明时候必须确定类型和大小
 2. 支持复制, 不支持动态扩展
 #### 方法 ####
@@ -286,7 +286,7 @@
 4. *end/cend/rend*
 5. *data* **指向数据的指针**
 
-### <vector> ###
+### \<vector\> ###
 1. 支持在尾部添加和删除元素
 #### 方法 ####
 1. *size()*
@@ -299,7 +299,7 @@
 8. *push_back*
 9. *pop_back*
 
-### <deque> 双端队列 ###
+### \<deque\> 双端队列 ###
 1. 支持双端元素的添加和删除
 2. 容量支持动态扩展
 
@@ -310,7 +310,7 @@
 4. *end/cend/rend*
 5. *erase*
 
-### <forward_list> 单向链表 ###
+### \<forward_list\> 单向链表 ###
 1. 单向链表只保存 header 信息
 2. 原生单向链表, 不包含*size方法*
 3. 支持前端添加和删除元素
@@ -330,7 +330,7 @@
 12. *unique*
 13. *sort*
 
-### <list> 双向链表 ###
+### \<list\> 双向链表 ###
 1. 双向链表保存header和tail,以及size信息
 2. 支持 *size 方法*
 3. 支持两端插入和删除元素
@@ -351,7 +351,7 @@
 14. *unique*
 15. *sort*
 
-### <map> 字典(自动排序) ###
+### \<map\> 字典(自动排序) ###
 1. 支持 *size 方法*
 2. 元素自动排序
 3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
@@ -365,7 +365,7 @@
 7. *count*
 8. *find*
 
-### <set> 集合(自动排序) ###
+### \<set\> 集合(自动排序) ###
 1. 支持 *size 方法*
 2. 元素自动排序
 3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
@@ -379,7 +379,7 @@
 7. *count*
 8. *find*
 
-### <unoredered_map> 字典(无序) ###
+### \<unoredered_map\> 字典(无序) ###
 1. 支持 *size 方法*
 #### 方法 ####
 1. *size()* 
@@ -391,7 +391,7 @@
 7. *count*
 8. *find*
 
-### <unordered_set> 集合(无序) ###
+### \<unordered_set\> 集合(无序) ###
 1. 支持 *size 方法*
 #### 方法 ####
 1. *size()* 
@@ -403,7 +403,7 @@
 7. *count*
 8. *find*
 
-### <algorithm>  ###
+### \<algorithm\>  ###
 #### 帅选 ####
 1. *all_of* **刷选器**
 2. *any_of* **刷选器**
@@ -433,18 +433,18 @@
 25. *sort*
 26. *stable_sort*
 
-### <numeric> 数值计算 ###
+### \<numeric\> 数值计算 ###
 1. *reduce*
 2. *accumulate*
 
-### <ratio> 有理分数 ###
+### \<ratio\> 有理分数 ###
 1. *ration<1, 1000>*
 
-### <numbers> 数学常量 ###
+### \<numbers\> 数学常量 ###
 1. *e*
 2. *pi*
 
-### <ios> ###
+### \<ios\> ###
 1. ios 基类定义
 2. 提供ios类最基本的管理接口
 #### 流状态管理 ####
@@ -459,7 +459,7 @@
 4. *trunc*
 5. *binary*
 
-### <istream> (basic istream) ###
+### \<istream\> (basic istream) ###
 #### 单字符操作 ####
 1. *get* **获取单个字符**
 2. *peek* **获取单个字符, 但是保留指针位置**
@@ -474,16 +474,16 @@
 1. *seekg(offset, whence)*
 2. *tellg*
 
-### <ostream> (basic ostream) ###
+### \<ostream\> (basic ostream) ###
 1. *endl* **\n**
 2. *ends* **\0**
 3. *flush* **刷新输出流**
 
-### <iostream> ###
+### \<iostream\> ###
 1. 标准输入输出流对象
 
 
-### <fstream> (继承自basic_iostream) ###
+### \<fstream\> (继承自basic_iostream) ###
 1. 文件输入输出流(上层流对象)
 2. *ofstream/ifstream/fstream*
 #### 支持方法 ####
@@ -491,7 +491,7 @@
 2. *close* **解除关联文件绑定**
 3. *is_open* **判断是否绑定到文件**
 
-### <sstream> (继承自basic_iostream) 字符串流 ###
+### \<sstream\> (继承自basic_iostream) 字符串流 ###
 #### 三类字符串流 ####
 1. *istingstream*
 2. *ostringstream*
@@ -501,14 +501,15 @@
 2. *str("abc")* **设置流对象字符串**
 3. *rdbuf()* **返回底层字符对象的指针**
 
-### <iomanip> ###
-1. 拓展的输出格式化<setxxx>
+### \<iomanip\> ###
+1. 拓展的输出格式化\<setxxx\>
 
 #### 支持方法 ####
 1. *setw*
 2. *setfill*
 3. *setbase*
 4. *setprecision* **有效位数**
+
 #### I/O格式化 (ios_basic方法) ####
 5. *std::left*
 6. *std::right*
@@ -518,7 +519,7 @@
 10. *hexfloat*
 11. *defaultfloat*
 
-### <cstdio> 缓冲I/O ###
+### \<cstdio\> 缓冲I/O ###
 #### 类型定义 ####
 1. *fpos_t*
 2. *size_t*
@@ -615,7 +616,7 @@
             fs::remove_all("sandbox");
         }
 
-### <regex> ###
+### \<regex\> ###
 #### 这则匹配相关的类 ####
 1. regex
 2. smatch/cmatch **match_results<string>**
@@ -625,7 +626,7 @@
 2. *regex_search*
 3. *regex_replace*
 
-### <atomic> ###
+### \<atomic\> ###
 1. 原子数据类型
 2. 数据维度的原子操作锁
 
@@ -637,7 +638,7 @@
 5. atomic_uint
 6. atomic_ulong
 
-### <thread> ###
+### \<thread\> ###
 #### thread 类 ####
 1. *id* **共有成员**
 2. *get_id*
@@ -645,12 +646,13 @@
 4. *join*
 5. *detach*
 6. *swap* **交换两个thread对象**
+7. *yield* **交出CPU,由运行状态转换成就绪状态**
 #### this_thread ####
 1. *get_id()*
 2. *sleep_for(duration)*
 3. *sleep_until(time_point)*
 
-### <mutex> ###
+### \<mutex\> ###
 #### 互斥量 ####
 1. mutex **普通锁**
 2. timed_mutex **限时锁**
@@ -684,7 +686,7 @@
 4. *try_acquire_for* **timed block**
 5. *try_acquire_until* **timed block**
 
-### <shared_mutex> ###
+### \<shared_mutex\> ###
 **共享锁可以提供多种加锁状态**
 
 #### 两种共享锁 ####
@@ -698,34 +700,6 @@
 4. *lock_shared*
 5. *try_lock_shared*
 6. *unlock_shared*
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

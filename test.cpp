@@ -14,6 +14,7 @@
 #include <pthread.h>
 #include <regex>
 #include <set>
+#include <shared_mutex>
 #include <sstream>
 #include <stdio.h>
 #include <string>
