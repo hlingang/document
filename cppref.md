@@ -244,15 +244,15 @@
 
 ### \<string\> c++字符串处理 ###
 #### basic_string 类 ####
-1. *assign(count, c)*
-2. *assign(string str)*
+1. *assign(count, c)* **支持 assign 动态赋值**
+2. *assign(string str)* **支持 assign 动态赋值**
 3. *at(index)*
 4. *front*
 5. *back*
 6. *data*
 7. *c_str*
 8. *empty*
-9. *size/length*
+9.  *size/length*
 10. *capacity*
 11. *reverse*
 12. *begin(end)/cbegin(cend)/rbegin(rend)*
@@ -303,7 +303,7 @@
 
 ### \<vector\> ###
 1. 支持在尾部添加和删除元素
-2. 支持assign 赋值
+2. 支持 assign 动态赋值
 #### 方法 ####
 1. *size()*
 2. *empty()*
@@ -318,7 +318,7 @@
 ### \<deque\> 双端队列 ###
 1. 支持双端元素的添加和删除
 2. 容量支持动态扩展
-3. 支持assign 赋值
+3. 支持 assign 动态赋值
 
 #### 方法 ####
 1. *size()*
@@ -332,7 +332,7 @@
 2. 原生单向链表, 不包含*size方法*
 3. 支持前端添加和删除元素
 4. 普通插入元素的时候只能在指定位置的后面插入元素
-5. 支持assign 赋值
+5. 支持 assign 动态赋值
 
 #### 方法 ####
 2. *empty()*
@@ -353,7 +353,7 @@
 1. 双向链表保存header和tail,以及size信息
 2. 支持 *size 方法*
 3. 支持两端插入和删除元素
-4. 支持assign 赋值
+4. 支持 assign 动态赋值
 #### 方法 ####
 1. *size()* 
 2. *empty()*
