@@ -4,11 +4,13 @@
 #include <cstdlib>
 #include <cstring>
 #include <filesystem>
+#include <forward_list>
 #include <fstream>
 #include <functional>
 #include <initializer_list>
 #include <iomanip>
 #include <iostream>
+#include <list>
 #include <map>
 #include <memory>
 #include <pthread.h>
@@ -21,6 +23,12 @@
 #include <unistd.h>
 #include <vector>
 using namespace std;
+
+struct s1 {
+    char a;
+    short b;
+    int c;
+} __attribute__((packed));
 
 class MM {
   public:
@@ -112,4 +120,21 @@ int main() {
         cout << val << endl;
     }
     MM mm({1, 2, 3});
+    s1 ss1;
+    int a{1};
+    memset(&ss1, 0x00, sizeof(s1));
+    printf("sizeof(s1)=%d\n", (int)sizeof(s1));
+    forward_list<int> fli{4, 3, 5, 1, 2};
+    fli.sort(less<int>());
+    fli.erase_after(fli.before_begin());
+    for (auto &e : fli) {
+        cout << e << endl;
+    }
+    deque<int> vli{1, 2, 3, 4, 5};
+    vli.erase(vli.begin(), vli.begin() + 2);
+    {
+        for (auto &e : vli) {
+            cout << e << endl;
+        }
+    }
 }

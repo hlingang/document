@@ -243,6 +243,21 @@
 14. *toupper* **converts a character to uppercase**
 
 ### \<string\> c++字符串处理 ###
+#### basic_string 类 ####
+1. *assign(count, c)*
+2. *assign(string str)*
+3. *at(index)*
+4. *front*
+5. *back*
+6. *data*
+7. *c_str*
+8. *empty*
+9. *size/length*
+10. *capacity*
+11. *reverse*
+12. *begin(end)/cbegin(cend)/rbegin(rend)*
+13. *shrink_to_fit*
+#### 通用字符串处理函数 ####
 1. *stoi*
 2. *stol*
 3. *stoll*
@@ -288,6 +303,7 @@
 
 ### \<vector\> ###
 1. 支持在尾部添加和删除元素
+2. 支持assign 赋值
 #### 方法 ####
 1. *size()*
 2. *empty()*
@@ -302,6 +318,7 @@
 ### \<deque\> 双端队列 ###
 1. 支持双端元素的添加和删除
 2. 容量支持动态扩展
+3. 支持assign 赋值
 
 #### 方法 ####
 1. *size()*
@@ -315,25 +332,28 @@
 2. 原生单向链表, 不包含*size方法*
 3. 支持前端添加和删除元素
 4. 普通插入元素的时候只能在指定位置的后面插入元素
+5. 支持assign 赋值
 
 #### 方法 ####
 2. *empty()*
 3. *begin/cbegin*
-4. *end/cend*
-5. *insert_after* **只能往后插入元素**
-6. *erase_after* 
-7. *push_front*
-8. *pop_front*
-9. *remove*      **删除特定值元素(不会真正删除)**
-10. *remove_if*  **删除满足条件的特定元素(不会真正删除)**
-11. *reverse*
-12. *unique*
-13. *sort*
+4. *before_begin/cbefor_begin* **返回首元素前面位置的迭代器**
+5. *end/cend*
+6. *insert_after* **只能往后插入元素**
+7. *erase_after* **删除指定位置后面的元素**
+8. *push_front*
+9.  *pop_front*
+10. *remove*      **删除特定值元素(不会真正删除)**
+11. *remove_if*  **删除满足条件的特定元素(不会真正删除)**
+12. *reverse*
+13. *unique*
+14. *sort*
 
 ### \<list\> 双向链表 ###
 1. 双向链表保存header和tail,以及size信息
 2. 支持 *size 方法*
 3. 支持两端插入和删除元素
+4. 支持assign 赋值
 #### 方法 ####
 1. *size()* 
 2. *empty()*
