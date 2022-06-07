@@ -7,23 +7,51 @@
 4. *bitset.flip(/*position*/)*
 5. *支持与或非操作*
 6. *支持索引访问*
+7. *bitset.all()/any()/size()/count()*
+8. *bitset.to_string()/to_ulong()*
+```
+int main() {
+    bitset<8> bset;
+    bset.reset();
+    bset.set(0, true);
+    bset.set(1, true);
+    cout << "count: " << bset.count() << endl;
+    for (int i = 0; i < bset.size(); i++) {
+        cout << bset[i] << endl;
+    }
+    cout << "string: " << bset.to_string() << endl;
+    cout << "ulong : " << bset.to_ullong() << endl;
+}
+```
 
-### \<chrone\> ###
+### \<chrono\> ###
 #### duration ###
-1. *std::ratio\<a, b\>* **单位时间刻度**
-2. *std::chrone::duration\<int, ratio\>* **时间长度**
+##### 通用时间长度 ###
+1. *std::ratio\<a, b\>* **单位时间刻度(有理数)**
+2. *std::chrono::duration\<int, ratio\>* **时间长度**
     1) 刻度单位
     2) 刻度计数
-3. *std::chrone::minutes*
-4. *std::chrone::seconds*
-5. *std::chrone::duration_cast\<target_duration\>(source_duration)*
-6. *std::chrone::system_clock::now()* **获取当前系统时间**
+##### 常用的时间长度 #####
+3. *std::chrono::minutes*
+4. *std::chrono::seconds*
+##### 时间长度的转换 #####
+5. *std::chrono::duration_cast\<target_duration\>(source_duration)*
+6. *std::chrono::system_clock::now()* **获取当前系统时间**
+    ```
+    int main() {
+        chrono::duration<int, ratio<60, 1>> s(1); // 1 mins
+        cout << chrono::duration_cast<chrono::seconds>(s).count() << endl;
+    }
+    ```
 
 #### time_point ####
+1. system_clock
+2. steady_clock
+3. high_resolution_clock
 ##### system_clock #####
-1. *now*
-2. *from_time_t*
-3. *to_time_t*
+1. *now* 
+2. *from_time_t* 
+3. *to_time_t* 
 ##### steady_clock #####
 1. *now*
 ##### high_resolution_clock #####
