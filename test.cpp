@@ -27,6 +27,10 @@
 using namespace std;
 
 int main() {
-    chrono::duration<int, ratio<60, 1>> s(1); // 1 mins
-    cout << chrono::duration_cast<chrono::seconds>(s).count() << endl;
+    chrono::time_point ts_point = chrono::system_clock::now();
+    chrono::nanoseconds ts_duration_ns = ts_point.time_since_epoch();
+    chrono::milliseconds ts_duration_ms =
+        chrono::duration_cast<chrono::milliseconds>(ts_duration_ns);
+    uint64_t ms_count = ts_duration_ms.count();
+    cout << "ms_count: " << ms_count << endl;
 }

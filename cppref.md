@@ -56,6 +56,18 @@ int main() {
 1. *now*
 ##### high_resolution_clock #####
 1. *now*
+##### 时间点转换成时间段 #####
+1. *time_point.since_time_epoch()*
+```
+int main() {
+    chrono::time_point ts_point = chrono::system_clock::now();
+    chrono::nanoseconds ts_duration_ns = ts_point.time_since_epoch();
+    chrono::milliseconds ts_duration_ms =
+        chrono::duration_cast<chrono::milliseconds>(ts_duration_ns);
+    uint64_t ms_count = ts_duration_ms.count();
+    cout << "ms_count: " << ms_count << endl;
+}
+```
 
 ### \<csignal\> ###
 1. signal 宏定义
