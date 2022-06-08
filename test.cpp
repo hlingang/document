@@ -25,12 +25,26 @@
 #include <unistd.h>
 #include <vector>
 using namespace std;
+class A {
+  public:
+    A(int index) { mIndex = index; }
+    int mIndex;
+};
+void test(A &a) { cout << "index: " << a.mIndex << endl; }
+void test(A &&a) { cout << "index: " << a.mIndex << endl; }
 
+void deleter(int *ptr) {
+    cout << "delete " << *ptr << endl;
+    delete[] ptr;
+};
+struct sdeleter {
+    void operator()(int *ptr) {
+        cout << "delete " << *ptr << endl;
+        delete[] ptr;
+    }
+};
 int main() {
-    chrono::time_point ts_point = chrono::system_clock::now();
-    chrono::nanoseconds ts_duration_ns = ts_point.time_since_epoch();
-    chrono::milliseconds ts_duration_ms =
-        chrono::duration_cast<chrono::milliseconds>(ts_duration_ns);
-    uint64_t ms_count = ts_duration_ms.count();
-    cout << "ms_count: " << ms_count << endl;
+    shared_ptr<int> intPtr(new int[10], deleter);
+    shared_ptr<int> intPtr(new int[10], sdeleter());
+    return 0;
 }

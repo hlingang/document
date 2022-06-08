@@ -72,6 +72,10 @@ int main() {
 ### \<csignal\> ###
 1. signal 宏定义
 2. signal 操作函数
+#### 信号注册函数 ####
+1. *signal(signo, void func(int signo))*
+#### 发送信号 ####
+1. *raise(signo)*
 
 ### \<cstdarg\> ###
 1. 可变长参数操作
@@ -79,29 +83,37 @@ int main() {
 3. *va_start()*
 4. *va_arg()*
 5. *va_end()*
-
-        #include <iostream>
-        #include <cstdarg>
-        int add_nums(int count, ...) 
-        {
-            int result = 0;
-            std::va_list args;
-            va_start(args, count);
-            for (int i = 0; i < count; ++i) {
-                result += va_arg(args, int);
-            }
-            va_end(args);
-            return result;
-        }
-        int main() 
-        {
-            std::cout << add_nums(4, 25, 25, 50, 50) << '\n';
-        }
-
+```
+#include <iostream>
+#include <cstdarg>
+int add_nums(int count, ...) 
+{
+    int result = 0;
+    std::va_list args;
+    va_start(args, count);
+    for (int i = 0; i < count; ++i) {
+        result += va_arg(args, int);
+    }
+    va_end(args);
+    return result;
+}
+int main() 
+{
+    std::cout << add_nums(4, 25, 25, 50, 50) << '\n';
+}
+```
 ### \<cstddef\> ###
 1. size_t long unsigned int
-2. byte (byte 类)
+2. byte (byte 类) *等效于unsigned char(0-255)*
 3. *std::to_integer(byte)* **实现byte 到 integer 的转换**
+```
+int main() {
+    byte a{10};
+    byte b{0b100011};
+    byte c = a & b;
+    cout << "change byte to integer: " << to_integer<int>(c) << endl;
+}
+```
 
 ### \<cstdlib\> ###
 
@@ -110,7 +122,6 @@ int main() {
 2. *NULL*    **0 or nullptr**
 
 #### 函数 ####
-
 ##### 系统相关的函数 #####
 1. *abort()*
 2. *exit()*
@@ -121,7 +132,16 @@ int main() {
 7. *calloc()*
 8. *realloc()*
 9. *free()*
-
+```
+void _exit() { cout << "exit" << endl; }
+int main() {
+    atexit(_exit);
+    system("ls");
+    char *path = getenv("PATH");
+    cout << "PATH: " << path << endl;
+    exit(-1);
+}
+```
 ##### 类型转换相关的函数 #####
 1. *atoi*
 2. *atod*
@@ -129,6 +149,12 @@ int main() {
 4. *strtol*
 5. *strtod*
 6. *strtof*
+```
+int main() {
+    cout << "int    value: " << strtol("12345", NULL, 10) << endl;
+    cout << "double value: " << strtod("123.45", NULL) << endl;
+}
+```
 
 ### \<ctime\> ###
 #### 时间相关数据结构 ####
@@ -144,28 +170,28 @@ int main() {
 5. strftime **时间格式化, input必须是tm**
 6. *ctime(time_t \*)* **快速格式化时间**
 7. *asctime(tm \*)* **快速格式化时间**
-
-        int main() 
-        {
-            time_t t0; //基本时间
-            time(&t0);
-            printf("t0 = %ld\n", t0);
-            struct tm *tmPtr = localtime(&t0);
-            printf("%d/%d/%d\n", tmPtr->tm_year, tmPtr->tm_mon, tmPtr->tm_mday);
-            time_t t1 = mktime(tmPtr);
-            printf("t1 = %ld\n", t1);
-            struct tm *tmPtr01 = gmtime(&t1);
-            printf("%d/%d/%d\n", tmPtr->tm_year, tmPtr->tm_mon, tmPtr->tm_mday);
-            char tbuffer[512] = {0};
-            strftime(tbuffer, sizeof(tbuffer), "%Y-%m-%d %H:%M:%S\n", tmPtr01);
-            printf("%s", tbuffer);
-            //快速格式化时间函数
-            char *p01 = ctime(&t1);
-            char *p02 = asctime(tmPtr01);
-            printf("01:%s\n", p01);
-            printf("02:%s\n", p02);
-        }
-
+```
+int main() 
+{
+    time_t t0; //基本时间
+    time(&t0);
+    printf("t0 = %ld\n", t0);
+    struct tm *tmPtr = localtime(&t0);
+    printf("%d/%d/%d\n", tmPtr->tm_year, tmPtr->tm_mon, tmPtr->tm_mday);
+    time_t t1 = mktime(tmPtr);
+    printf("t1 = %ld\n", t1);
+    struct tm *tmPtr01 = gmtime(&t1);
+    printf("%d/%d/%d\n", tmPtr->tm_year, tmPtr->tm_mon, tmPtr->tm_mday);
+    char tbuffer[512] = {0};
+    strftime(tbuffer, sizeof(tbuffer), "%Y-%m-%d %H:%M:%S\n", tmPtr01);
+    printf("%s", tbuffer);
+    //快速格式化时间函数
+    char *p01 = ctime(&t1);
+    char *p02 = asctime(tmPtr01);
+    printf("01:%s\n", p01);
+    printf("02:%s\n", p02);
+}
+```
 
 ### \<functional\> 函数对象 ###
 1. *function* **通用函数对象的模板类**
@@ -181,13 +207,30 @@ int main() {
 11. *less*
 12. *greater_equal*
 13. *less_equal*
+```
+int main() {
+    function<bool(int, int)> callback = greater<int>();
+    vector<int> mvec{1, 2, 3, 4, 5};
+    sort(mvec.begin(), mvec.end(), callback);
+    for_each(mvec.begin(), mvec.end(),
+             [](int val) { cout << "val: " << val << endl; });
+}
+```
 
 #### 高阶函数 ####
-1. *bind* **绑定参数函数**
-2. *ref()* **向高阶函数传递引用**
-3. *cref()* **向高阶函数传递常引用**
-4. *invok*  **调用函数**
-5. *invok_r* **调用函数(控制返回类型)**
+1. *bind* **绑定参数函数 (参数为可调用对象的引用)**
+2. *ref()* **向高阶函数传递引用参数**
+3. *cref()* **向高阶函数传递常引用参数**
+4. *invok*  **调用函数 (参数为可调用对象的引用)**
+5. *invok_r* **调用函数 (控制返回类型)**
+```
+int main() {
+    function<bool(int, int)> callback = greater<int>();
+    function<bool(int)> mcallback = bind(callback, placeholders::_1, 10);
+    cout << invoke(callback, 1, 2) << endl;
+    cout << invoke(mcallback, 11) << endl;
+}
+```
 
 ### \<initializer_list\> ###
 1. 用于自定义类的列表初始化
@@ -196,11 +239,28 @@ int main() {
 1. 提供可选的target 值
 
 ### \<memory\> ###
-#### 职能指针 ####
+#### 智能指针 ####
 1. *unique_ptr*
 2. *shared_ptr*
 3. *make_shared*
 4. *make_unique*
+```
+void fdeleter(int *ptr) {
+    cout << "delete " << *ptr << endl;
+    delete[] ptr;
+};
+struct mdeleter {
+    void operator()(int *ptr) {
+        cout << "delete " << *ptr << endl;
+        delete[] ptr;
+    }
+};
+int main() {
+    shared_ptr<int> intPtr(new int[10], fdeleter);
+    shared_ptr<int> intPtr(new int[10], mdeleter());
+    return 0;
+}
+```
 
 ### \<cstdint\> ###
 1. *int8_t*
