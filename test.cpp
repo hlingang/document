@@ -25,13 +25,6 @@
 #include <unistd.h>
 #include <vector>
 using namespace std;
-class A {
-  public:
-    A(int index) { mIndex = index; }
-    int mIndex;
-};
-void test(A &a) { cout << "index: " << a.mIndex << endl; }
-void test(A &&a) { cout << "index: " << a.mIndex << endl; }
 
 void deleter(int *ptr) {
     cout << "delete " << *ptr << endl;
@@ -44,7 +37,19 @@ struct sdeleter {
     }
 };
 int main() {
-    shared_ptr<int> intPtr(new int[10], deleter);
-    shared_ptr<int> intPtr(new int[10], sdeleter());
-    return 0;
+    char a[]{"123"};
+    char b[]{"abc"};
+    // strcpy(a, b);
+    // strncpy(a, b, sizeof(b));
+    strcat(a, b);
+    strcmp(a, b);
+    cout << a << endl;
+    string ss;
+    ss.assign(5, 'c');
+    ss.assign("dd");
+    list<int> li;
+    li.assign({1, 2, 3, 4});
+    li.assign(2, 100);
+    for_each(li.begin(), li.end(), [](int &val) { cout << val << endl; });
+    cout << ss << " capacity " << ss.capacity() << endl;
 }

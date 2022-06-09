@@ -214,6 +214,9 @@ int main() {
     sort(mvec.begin(), mvec.end(), callback);
     for_each(mvec.begin(), mvec.end(),
              [](int val) { cout << "val: " << val << endl; });
+    set<int, greater<int>> sec{1, 2, 3, 4, 5};
+    for_each(sec.begin(), sec.end(),
+             [](int val) { cout << "val: " << val << endl; });
 }
 ```
 
@@ -256,8 +259,11 @@ struct mdeleter {
     }
 };
 int main() {
-    shared_ptr<int> intPtr(new int[10], fdeleter);
-    shared_ptr<int> intPtr(new int[10], mdeleter());
+    shared_ptr<int> intPtr01(new int[10], fdeleter);
+    shared_ptr<int> intPtr02(new int[10], mdeleter());
+    set<int, greater<int>> sec{1, 2, 3, 4, 5};
+    for_each(sec.begin(), sec.end(),
+             [](int val) { cout << "val: " << val << endl; });
     return 0;
 }
 ```
@@ -324,6 +330,17 @@ int main() {
 3. *underflow_error*
 4. *regex_error*
 5. *system_error*
+```
+int main() {
+    try {
+        cout << "exception test start" << endl;
+        throw invalid_argument("invalid argument test");
+    } catch (const std::exception &e) {
+        std::cerr << "catch exception: " << e.what() << '\n';
+        std::cout << "exception test end" << endl;
+    }
+}
+```
 
 ## 字符/字符串相关 ##
 ### \<cctype\> 单字符处理 ###
@@ -341,9 +358,19 @@ int main() {
 12. *ispunct* **checks if a character is a punctuation character**
 13. *tolower* **converts a character to lowercase**
 14. *toupper* **converts a character to uppercase**
+```
+int main() {
+    char a = 'a';
+    if (islower(a)) {
+        cout << toupper(a) << endl;
+    } else {
+        cout << tolower(a) << endl;
+    }
+}
+```
 
 ### \<string\> c++字符串处理 ###
-#### basic_string 类 ####
+#### basic_string 类(连续容器) ####
 1. *assign(count, c)* **支持 assign 动态赋值**
 2. *assign(string str)* **支持 assign 动态赋值**
 3. *at(index)*
@@ -357,6 +384,17 @@ int main() {
 11. *reverse*
 12. *begin(end)/cbegin(cend)/rbegin(rend)*
 13. *shrink_to_fit*
+14. *compare(string&)*
+15. starts_with
+16. ends_with
+17. contains
+18. replace
+19. substr
+20. find
+21. find_first_of
+22. find_first_not_of
+23. find_last_of
+24. find_last_not_of
 #### 通用字符串处理函数 ####
 1. *stoi*
 2. *stol*
@@ -367,6 +405,17 @@ int main() {
 7. *stod*
 8. *stold*
 9. *to_string(/\*int, float, double \*/)*
+```
+int main() {
+    string a = "3.14abcde";
+    string::size_type pos = a.find_first_not_of("0123456789.");
+    string s = a.substr(0, pos);
+    cout << stoi(s) << endl;
+    cout << stol(s) << endl;
+    cout << stod(s) << endl;
+    cout << to_string(3.14) << endl;
+}
+```
 
 ### \<cstring\> C字符串处理 ###
 #### 类型和宏定义 ####
@@ -382,6 +431,17 @@ int main() {
 6. *strncmp*
 7. *strlen*
 8. *strerror* **获取错误信息**
+```
+int main() {
+    char a[]{"123"};
+    char b[]{"abc"};
+    // strcpy(a, b);
+    // strncpy(a, b, sizeof(b));
+    strcat(a, b);
+    strcmp(a, b);
+    cout << a << endl;
+}
+```
 
 #### memory 操作函数(byte为单位) ####
 1. *memcpy*
@@ -391,9 +451,10 @@ int main() {
 5. *memchr*
 
 ## C++ 容器 ##
-### \<array\> ###
+### \<array\> 连续容器 ###
 1. 声明时候必须确定类型和大小
 2. 支持复制, 不支持动态扩展
+3. 不支持 assign 动态赋值
 #### 方法 ####
 1. *size()*
 2. *empty()*
@@ -403,7 +464,7 @@ int main() {
 
 ### \<vector\> ###
 1. 支持在尾部添加和删除元素
-2. 支持 assign 动态赋值
+2. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 #### 方法 ####
 1. *size()*
 2. *empty()*
@@ -418,7 +479,7 @@ int main() {
 ### \<deque\> 双端队列 ###
 1. 支持双端元素的添加和删除
 2. 容量支持动态扩展
-3. 支持 assign 动态赋值
+3. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 
 #### 方法 ####
 1. *size()*
@@ -432,7 +493,7 @@ int main() {
 2. 原生单向链表, 不包含*size方法*
 3. 支持前端添加和删除元素
 4. 普通插入元素的时候只能在指定位置的后面插入元素
-5. 支持 assign 动态赋值
+5. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 
 #### 方法 ####
 2. *empty()*
@@ -453,7 +514,7 @@ int main() {
 1. 双向链表保存header和tail,以及size信息
 2. 支持 *size 方法*
 3. 支持两端插入和删除元素
-4. 支持 assign 动态赋值
+4. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 #### 方法 ####
 1. *size()* 
 2. *empty()*
