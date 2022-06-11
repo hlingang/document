@@ -37,12 +37,12 @@ int main() {
 ##### 时间长度的转换 #####
 5. *std::chrono::duration_cast\<target_duration\>(source_duration)*
 6. *std::chrono::system_clock::now()* **获取当前系统时间**
-    ```
-    int main() {
-        chrono::duration<int, ratio<60, 1>> s(1); // 1 mins
-        cout << chrono::duration_cast<chrono::seconds>(s).count() << endl;
-    }
-    ```
+```
+int main() {
+    chrono::duration<int, ratio<60, 1>> s(1); // 1 mins
+    cout << chrono::duration_cast<chrono::seconds>(s).count() << endl;
+}
+```
 
 #### time_point ####
 1. system_clock
@@ -585,12 +585,24 @@ int main() {
 8. *find*
 
 ### \<algorithm\>  ###
-#### 帅选 ####
+#### 条件筛选 ####
 1. *all_of* **刷选器**
 2. *any_of* **刷选器**
 3. *none_of* **刷选器**
 4. *for_each*
 5. *for_each_n*
+```
+// 可调用对象实现筛选判断(true/false)或者消费(void)
+int main() {
+    array<int, 5> ai{1, 2, 3, 4, 5};
+    cout << all_of(ai.begin(), ai.end(), [](int val) { return val < 10; })
+         << endl;
+    cout << any_of(ai.begin(), ai.end(),
+                   bind(greater<int>(), placeholders::_1, 3))
+         << endl;
+    for_each_n(ai.begin(), 3, [](int val) { cout << val << endl; });
+}
+```
 #### 查找 ####
 6. *count* **查找具体值**
 7. *count_if* **查找条件**
@@ -613,11 +625,60 @@ int main() {
 24. *unique*
 25. *sort*
 26. *stable_sort*
+```
+int main() {
+    array<int, 5> ai{1, 2, 3, 4, 5};
+    array<int, 5> bi{4, 5, 6, 7, 8};
+    set<int> iset{1, 2, 3, 4, 5};
+    cout << *find(ai.begin(), ai.end(), 5) << endl;
+    array<int, 5>::iterator it =
+        find_if(ai.begin(), ai.end(), [](int &val) { return val > 2; });
+    if (it != ai.end()) {
+        cout << "find value: " << *it << endl;
+    } else {
+        cout << "find null" << endl;
+    }
+    it = find_first_of(ai.begin(), ai.end(), bi.begin(), bi.end());
+    cout << "find first of bi value: " << *it << endl;
+    remove(ai.begin(), ai.end(), 3); //移动和替换
+    for_each(ai.begin(), ai.end(), [](int val) { cout << val << endl; });
+    for_each(ai.begin(), ai.end(), [](int val) { cout << val << endl; });
+}
+```
+
+#### 集合操作 ####
+1. set_intersection
+2. set_union
+3. set_different
+```
+int main() {
+    array<int, 5> ai{1, 2, 3, 4, 5};
+    array<int, 5> bi{4, 5, 6, 7, 8};
+    array<int, 10> ci{0};
+    // intersection operation
+    set_intersection(ai.begin(), ai.end(), bi.begin(), bi.end(), ci.begin());
+    for_each(ci.begin(), ci.end(), [](int &val) { cout << val << endl; });
+    // union operation
+    set_union(ai.begin(), ai.end(), bi.begin(), bi.end(), ci.begin());
+    for_each(ci.begin(), ci.end(), [](int &val) { cout << val << endl; });
+}
+```
 
 ### \<numeric\> 数值计算 ###
 1. *reduce*
 2. *accumulate*
-
+```
+int main() {
+    array<int, 5> ai{1, 2, 3, 4, 5};
+    int sumvalue1 = accumulate(ai.begin(), ai.end(), 0);
+    int sumValue2 = reduce(ai.begin(), ai.end(), 0,
+                           [](int val01, int val02) { return val01 + val02; });
+    int sumValue3 = reduce(ai.begin(), ai.end(), 1,
+                           [](int val01, int val02) { return val01 * val02; });
+    cout << "value01: " << sumvalue1 << " value02: " << sumValue2
+         << " value03: " << sumValue3 << endl;
+}
+```
 ### \<ratio\> 有理分数 ###
 1. *ration<1, 1000>*
 
@@ -781,21 +842,22 @@ int main() {
 
 ##### 文件的遍历 #####
 1. *directory_iterator(path&)* **获取指定路径下的文件列表对象**
-
-        #include<iostream>
-        #include<fstream>
-        #include<filesystem>
-        int main()
-        {
-            namespace fs = filesystem;
-            fs::create_directories("sandbox/a/b");
-            std::ofstream("sandbox/file1.txt");
-            std::ofstream("sandbox/file2.txt");
-            fs::directory_iterator it("sandbox");
-            for (auto &p : it)
-                std::cout << p.path() << endl;
-            fs::remove_all("sandbox");
-        }
+```
+#include<iostream>
+#include<fstream>
+#include<filesystem>
+int main()
+{
+    namespace fs = filesystem;
+    fs::create_directories("sandbox/a/b");
+    std::ofstream("sandbox/file1.txt");
+    std::ofstream("sandbox/file2.txt");
+    fs::directory_iterator it("sandbox");
+    for (auto &p : it)
+        std::cout << p.path() << endl;
+    fs::remove_all("sandbox");
+}
+```
 
 ### \<regex\> ###
 #### 这则匹配相关的类 ####
