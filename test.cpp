@@ -27,23 +27,40 @@
 #include <vector>
 using namespace std;
 
-void deleter(int *ptr) {
-    cout << "delete " << *ptr << endl;
-    delete[] ptr;
-};
-struct sdeleter {
-    void operator()(int *ptr) {
-        cout << "delete " << *ptr << endl;
-        delete[] ptr;
-    }
-};
 int main() {
-    array<int, 5> ai{1, 2, 3, 4, 5};
-    int sumvalue1 = accumulate(ai.begin(), ai.end(), 0);
-    int sumValue2 = reduce(ai.begin(), ai.end(), 0,
-                           [](int val01, int val02) { return val01 + val02; });
-    int sumValue3 = reduce(ai.begin(), ai.end(), 1,
-                           [](int val01, int val02) { return val01 * val02; });
-    cout << "value01: " << sumvalue1 << " value02: " << sumValue2
-         << " value03: " << sumValue3 << endl;
+    istringstream strins("abcde\nfghij");
+    istream ins(strins.rdbuf());
+    char rdbuf[128] = {0};
+    while (!ins.eof()) {
+        // cout << "get: " << ins.get() << endl;
+        // ins.read(rdbuf, 1);
+
+        ins.getline(rdbuf, sizeof(rdbuf));
+        cout << "rdbuf: " << rdbuf << endl;
+        int pos = ins.tellg();
+        cout << "pos: " << pos << endl;
+        // ins.seekg(1, ios::cur /*begin/cur/end*/);
+        ins.sync();
+    }
+    stringstream stros("");
+    stros.put('1');
+    stros.put('2');
+    stros.put('3');
+    cout << "os " << stros.eof() << endl;
+    while (!stros.eof()) {
+        cout << "get os: " << stros.get() << " " << stros.eof() << endl;
+    }
+    istringstream iistr("abc");
+    while (true) {
+        char c = iistr.get();
+        if (iistr.eof()) {
+            break;
+        }
+        cout << c << endl;
+    }
+    ifstream inf("001.txt");
+    char c;
+    while (inf.get(c)) {
+        cout << c << endl;
+    }
 }

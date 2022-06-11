@@ -687,23 +687,27 @@ int main() {
 2. *pi*
 
 ### \<ios\> ###
-1. ios 基类定义
+1. ios 基类定义(base_iostream)
 2. 提供ios类最基本的管理接口
-#### 流状态管理 ####
+3. istream/ostream/iostream 类只能从streambuf构造
+4. streambuf 类无法直接构造
+5. istream/ostream->istringstream/ostringstream(stringstream)
+6. istream/ostream->ifstream/ofstream(fstream)
+#### 基本流状态管理 ####
 1. *good*
 2. *fail*
 3. *bad*
 4. *eof*
-#### opcode 管理 ###
+#### 基本流opcode 管理 ###
 1. *ios::out*
 2. *ios::in*
 3. *ios::app*
 4. *trunc*
 5. *binary*
 
-### \<istream\> (basic istream) ###
+### \<istream\> (基本输入流) ###
 #### 单字符操作 ####
-1. *get* **获取单个字符**
+1. *get/get(c)* **获取单个字符(返回字符/返回流对象)**
 2. *peek* **获取单个字符, 但是保留指针位置**
 3. *unget* **撤销取走的字符**
 4. *putback(c)* **向流中添加元素**
@@ -715,11 +719,49 @@ int main() {
 ### 流定位 ###
 1. *seekg(offset, whence)*
 2. *tellg*
+3. *rdbuf(/\*streambuf\*/)* **返回/设置底层streambuf对象的指针**
 
-### \<ostream\> (basic ostream) ###
+### \<ostream\> (基本输出流) ###
 1. *endl* **\n**
 2. *ends* **\0**
-3. *flush* **刷新输出流**
+3. *put*
+4. *write*
+5. *flush* **刷新输出流**
+```
+int main() {
+    istringstream strins("abcde\nfghij");
+    istream ins(strins.rdbuf());
+    char rdbuf[128] = {0};
+    while (!ins.eof()) {
+        // cout << "get: " << ins.get() << endl;
+        // ins.read(rdbuf, 1);
+
+        ins.getline(rdbuf, sizeof(rdbuf));
+        cout << "rdbuf: " << rdbuf << endl;
+        int pos = ins.tellg();
+        cout << "pos: " << pos << endl;
+        // ins.seekg(1, ios::cur /*begin/cur/end*/);
+        ins.sync();
+    }
+    stringstream stros("");
+    stros.put('1');
+    stros.put('2');
+    stros.put('3');
+    cout << "os " << stros.eof() << endl;
+    while (!stros.eof()) {
+        cout << "get os: " << stros.get() << endl;
+    }
+    // 读取数据流程(先读取->后判断EOF)
+    istringstream iistr("abc");
+    while (true) {
+        char c = iistr.get();
+        if (iistr.eof()) {
+            break;
+        }
+        cout << c << endl;
+    }
+}
+```
 
 ### \<iostream\> ###
 1. 标准输入输出流对象
@@ -741,7 +783,6 @@ int main() {
 #### 支持方法 ####
 1. *str()* **从流对象返回字符串**
 2. *str("abc")* **设置流对象字符串**
-3. *rdbuf()* **返回底层字符对象的指针**
 
 ### \<iomanip\> ###
 1. 拓展的输出格式化\<setxxx\>
