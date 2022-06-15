@@ -764,8 +764,11 @@ int main() {
 ```
 
 ### \<iostream\> ###
-1. 标准输入输出流对象
+1. 标准输入输出流对象(基本流对象)
 
+### \<strstream\> (继承自basic_iostream) ###
+1. C-style 字符串流对象
+2. istrstream/ostrstream/strstream
 
 ### \<fstream\> (继承自basic_iostream) ###
 1. 文件输入输出流(上层流对象)
