@@ -615,7 +615,7 @@ int main() {
 14. *copy_n*
 15. *fill*
 16. *fill_n*
-17. *remove*
+17. *remove* **查找过滤**
 18. *remove_if*
 19. *replace*
 20. *replace_if*
@@ -640,7 +640,7 @@ int main() {
     }
     it = find_first_of(ai.begin(), ai.end(), bi.begin(), bi.end());
     cout << "find first of bi value: " << *it << endl;
-    remove(ai.begin(), ai.end(), 3); //移动和替换
+    remove(ai.begin(), ai.end(), 3); // 查找过滤
     for_each(ai.begin(), ai.end(), [](int val) { cout << val << endl; });
     for_each(ai.begin(), ai.end(), [](int val) { cout << val << endl; });
 }
