@@ -1,6 +1,6 @@
-## cpp header ##
+## cpp header 
 
-### \<bitset\> ###
+### \<bitset\>
 1. *bitset\<n\> bitset* **n位的bitset, 每个bit代表true和false
 2. *bitset.reset()*
 3. *bitset.set(/*position, true*/)*
@@ -24,17 +24,17 @@ int main() {
 }
 ```
 
-### \<chrono\> ###
-#### duration ###
-##### 通用时间长度 ###
+### \<chrono\> 
+#### duration 
+##### 通用时间长度 
 1. *std::ratio\<a, b\>* **单位时间刻度(有理数)**
 2. *std::chrono::duration\<int, ratio\>* **时间长度**
     1) 刻度单位
     2) 刻度计数
-##### 常用的时间长度 #####
+##### 常用的时间长度 
 3. *std::chrono::minutes*
 4. *std::chrono::seconds*
-##### 时间长度的转换 #####
+##### 时间长度的转换 
 5. *std::chrono::duration_cast\<target_duration\>(source_duration)*
 6. *std::chrono::system_clock::now()* **获取当前系统时间**
 ```
@@ -44,19 +44,19 @@ int main() {
 }
 ```
 
-#### time_point ####
+#### time_point 
 1. system_clock
 2. steady_clock
 3. high_resolution_clock
-##### system_clock #####
+##### system_clock 
 1. *now* 
 2. *from_time_t* 
 3. *to_time_t* 
-##### steady_clock #####
+##### steady_clock 
 1. *now*
-##### high_resolution_clock #####
+##### high_resolution_clock 
 1. *now*
-##### 时间点转换成时间段 #####
+##### 时间点转换成时间段 
 1. *time_point.since_time_epoch()*
 ```
 int main() {
@@ -69,15 +69,15 @@ int main() {
 }
 ```
 
-### \<csignal\> ###
+### \<csignal\> 
 1. signal 宏定义
 2. signal 操作函数
-#### 信号注册函数 ####
+#### 信号注册函数 
 1. *signal(signo, void func(int signo))*
-#### 发送信号 ####
+#### 发送信号 
 1. *raise(signo)*
 
-### \<cstdarg\> ###
+### \<cstdarg\> 
 1. 可变长参数操作
 2. *va_list args;*
 3. *va_start()*
@@ -102,7 +102,7 @@ int main()
     std::cout << add_nums(4, 25, 25, 50, 50) << '\n';
 }
 ```
-### \<cstddef\> ###
+### \<cstddef\> 
 1. size_t long unsigned int
 2. byte (byte 类) *等效于unsigned char(0-255)*
 3. *std::to_integer(byte)* **实现byte 到 integer 的转换**
@@ -115,14 +115,14 @@ int main() {
 }
 ```
 
-### \<cstdlib\> ###
+### \<cstdlib\> 
 
-#### 宏定义 ####
+#### 宏定义 
 1. *size_t*  **long unsigned int**
 2. *NULL*    **0 or nullptr**
 
-#### 函数 ####
-##### 系统相关的函数 #####
+#### 函数 
+##### 系统相关的函数 
 1. *abort()*
 2. *exit()*
 3. *atexit()*
@@ -142,7 +142,7 @@ int main() {
     exit(-1);
 }
 ```
-##### 类型转换相关的函数 #####
+##### 类型转换相关的函数 
 1. *atoi*
 2. *atod*
 3. *atof*
@@ -156,13 +156,13 @@ int main() {
 }
 ```
 
-### \<ctime\> ###
-#### 时间相关数据结构 ####
+### \<ctime\> 
+#### 时间相关数据结构 
 1. time_t **long int**
 2. struct tm **日历时间结构体**
 3. struct timespc **纳秒精度时间戳**
 
-#### 时间相关操作 ####
+#### 时间相关操作 
 1. time **获取当前时间戳**
 2. localtime **时间戳转换成日历时间**
 3. gmtime    **时间戳转换成日历时间**
@@ -193,7 +193,7 @@ int main()
 }
 ```
 
-### \<functional\> 函数对象 ###
+### \<functional\> 函数对象
 1. *function* **通用函数对象的模板类**
 2. *plus*     **具体函数对象的模板类**
 3. *minus*
@@ -220,7 +220,7 @@ int main() {
 }
 ```
 
-#### 高阶函数 ####
+#### 高阶函数 
 1. *bind* **绑定参数函数 (参数为可调用对象的引用)**
 2. *ref()* **向高阶函数传递引用参数**
 3. *cref()* **向高阶函数传递常引用参数**
@@ -235,14 +235,14 @@ int main() {
 }
 ```
 
-### \<initializer_list\> ###
+### \<initializer_list\> 
 1. 用于自定义类的列表初始化
 
-### \<optional\> ###
+### \<optional\> 
 1. 提供可选的target 值
 
-### \<memory\> ###
-#### 智能指针 ####
+### \<memory\> 
+#### 智能指针 
 1. *unique_ptr*
 2. *shared_ptr*
 3. *make_shared*
@@ -268,7 +268,7 @@ int main() {
 }
 ```
 
-### \<cstdint\> ###
+### \<cstdint\> 
 1. *int8_t*
 2. *int16_t*
 3. *int32_t*
@@ -282,10 +282,10 @@ int main() {
 11. *intmax_t*
 12. *uintmax_t*
 
-### \<csassert\> ###
+### \<csassert\> 
 1. assert((condition)) **宏函数**
 
-### \<cerrno\> ###
+### \<cerrno\> 
 1. *errno* **线程安全的全局变量**
 2. *error 宏定义* 
 3. E2BIG
@@ -298,33 +298,33 @@ int main() {
 10. EINTR
 11. EINVAL
 
-### \<exception\> 基本异常类 ###
-#### logic error ####
+### \<exception\> 基本异常类 
+#### logic error 
 1. *invalid_argument*
 2. *domain_error*
 3. *length_error*
 4. *out_of_range*
 5. *future_error*
 
-#### runtime error ####
+#### runtime error 
 1. *range_error*
 2. *overflow_error*
 3. *underflow_error*
 4. *regex_error*
 5. *system_error*
 
-#### 支持方法 ####
+#### 支持方法 
 1. *e.what()* **返回异常描述**
 
 ### \<stdexcept\> 由基本异常类继承而来的标准异常类 ###
-#### logic error ####
+#### logic error 
 1. *invalid_argument*
 2. *domain_error*
 3. *length_error*
 4. *out_of_range*
 5. *future_error*
 
-#### runtime error ####
+#### runtime error 
 1. *range_error*
 2. *overflow_error*
 3. *underflow_error*
@@ -342,8 +342,8 @@ int main() {
 }
 ```
 
-## 字符/字符串相关 ##
-### \<cctype\> 单字符处理 ###
+## 字符/字符串相关 
+### \<cctype\> 单字符处理 
 1. *isalnum* **checks if a character is alphanumeric**
 2. *isalpha* **checks if a character is alphabetic**
 3. *islower* **checks if a character is lowercase**
@@ -369,8 +369,8 @@ int main() {
 }
 ```
 
-### \<string\> c++字符串处理 ###
-#### basic_string 类(连续容器) ####
+### \<string\> c++字符串处理 
+#### basic_string 类(连续容器) 
 1. *assign(count, c)* **支持 assign 动态赋值**
 2. *assign(string str)* **支持 assign 动态赋值**
 3. *at(index)*
@@ -395,7 +395,7 @@ int main() {
 22. find_first_not_of
 23. find_last_of
 24. find_last_not_of
-#### 通用字符串处理函数 ####
+#### 通用字符串处理函数 
 1. *stoi*
 2. *stol*
 3. *stoll*
@@ -417,12 +417,12 @@ int main() {
 }
 ```
 
-### \<cstring\> C字符串处理 ###
-#### 类型和宏定义 ####
+### \<cstring\> C字符串处理 
+#### 类型和宏定义 
 1. *NULL* 
 2. *size_t* **long unsiged int**
 
-#### C字符处理函数(null-terminated 字符数组) ####
+#### C字符处理函数(null-terminated 字符数组) 
 1. *strcpy*
 2. *strncpy*
 3. *strcat*
@@ -443,29 +443,29 @@ int main() {
 }
 ```
 
-#### memory 操作函数(byte为单位) ####
+#### memory 操作函数(byte为单位) 
 1. *memcpy*
 2. *memset*
 3. *memcmp*
 4. *memmove*
 5. *memchr*
 
-## C++ 容器 ##
-### \<array\> 连续容器 ###
+## C++ 容器 
+### \<array\> 连续容器 
 1. 声明时候必须确定类型和大小
 2. 支持复制, 不支持动态扩展
 3. 不支持 assign 动态赋值
-#### 方法 ####
+#### 方法 
 1. *size()*
 2. *empty()*
 3. *begin/cbegin/rbegin*
 4. *end/cend/rend*
 5. *data* **指向数据的指针**
 
-### \<vector\> ###
+### \<vector\> 
 1. 支持在尾部添加和删除元素
 2. 支持 assign 动态赋值(每次赋值会清空原来的数据)
-#### 方法 ####
+#### 方法 
 1. *size()*
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -476,26 +476,26 @@ int main() {
 8. *push_back*
 9. *pop_back*
 
-### \<deque\> 双端队列 ###
+### \<deque\> 双端队列 
 1. 支持双端元素的添加和删除
 2. 容量支持动态扩展
 3. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 
-#### 方法 ####
+#### 方法 
 1. *size()*
 2. *empty()*
 3. *begin/cbegin/rbegin*
 4. *end/cend/rend*
 5. *erase*
 
-### \<forward_list\> 单向链表 ###
+### \<forward_list\> 单向链表 
 1. 单向链表只保存 header 信息
 2. 原生单向链表, 不包含*size方法*
 3. 支持前端添加和删除元素
 4. 普通插入元素的时候只能在指定位置的后面插入元素
 5. 支持 assign 动态赋值(每次赋值会清空原来的数据)
 
-#### 方法 ####
+#### 方法
 2. *empty()*
 3. *begin/cbegin*
 4. *before_begin/cbefor_begin* **返回首元素前面位置的迭代器**
@@ -510,12 +510,12 @@ int main() {
 13. *unique*
 14. *sort*
 
-### \<list\> 双向链表 ###
+### \<list\> 双向链表
 1. 双向链表保存header和tail,以及size信息
 2. 支持 *size 方法*
 3. 支持两端插入和删除元素
 4. 支持 assign 动态赋值(每次赋值会清空原来的数据)
-#### 方法 ####
+#### 方法
 1. *size()* 
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -532,11 +532,11 @@ int main() {
 14. *unique*
 15. *sort*
 
-### \<map\> 字典(自动排序) ###
+### \<map\> 字典(自动排序) 
 1. 支持 *size 方法*
 2. 元素自动排序
 3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
-#### 方法 ####
+#### 方法 
 1. *size()* 
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -546,11 +546,11 @@ int main() {
 7. *count*
 8. *find*
 
-### \<set\> 集合(自动排序) ###
+### \<set\> 集合(自动排序) 
 1. 支持 *size 方法*
 2. 元素自动排序
 3. 基于元素比较器排序, 或者基于容器比较器实现自动排序
-#### 方法 ####
+#### 方法 
 1. *size()* 
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -560,9 +560,9 @@ int main() {
 7. *count*
 8. *find*
 
-### \<unoredered_map\> 字典(无序) ###
+### \<unoredered_map\> 字典(无序)
 1. 支持 *size 方法*
-#### 方法 ####
+#### 方法 
 1. *size()* 
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -572,9 +572,9 @@ int main() {
 7. *count*
 8. *find*
 
-### \<unordered_set\> 集合(无序) ###
+### \<unordered_set\> 集合(无序)
 1. 支持 *size 方法*
-#### 方法 ####
+#### 方法
 1. *size()* 
 2. *empty()*
 3. *begin/cbegin/rbegin*
@@ -584,8 +584,8 @@ int main() {
 7. *count*
 8. *find*
 
-### \<algorithm\>  ###
-#### 条件筛选 ####
+### \<algorithm\>
+#### 条件筛选
 1. *all_of* **刷选器**
 2. *any_of* **刷选器**
 3. *none_of* **刷选器**
@@ -603,7 +603,7 @@ int main() {
     for_each_n(ai.begin(), 3, [](int val) { cout << val << endl; });
 }
 ```
-#### 查找 ####
+#### 查找 
 6. *count* **查找具体值**
 7. *count_if* **查找条件**
 8. *find* **查找具体值**
@@ -646,7 +646,7 @@ int main() {
 }
 ```
 
-#### 集合操作 ####
+#### 集合操作
 1. set_intersection
 2. set_union
 3. set_different
@@ -664,7 +664,7 @@ int main() {
 }
 ```
 
-### \<numeric\> 数值计算 ###
+### \<numeric\> 数值计算
 1. *reduce*
 2. *accumulate*
 ```
@@ -679,49 +679,49 @@ int main() {
          << " value03: " << sumValue3 << endl;
 }
 ```
-### \<ratio\> 有理分数 ###
+### \<ratio\> 有理分数
 1. *ration<1, 1000>*
 
-### \<numbers\> 数学常量 ###
+### \<numbers\> 数学常量
 1. *e*
 2. *pi*
 
-### \<ios\> ###
+### \<ios\>
 1. ios 基类定义(base_iostream)
 2. 提供ios类最基本的管理接口
 3. istream/ostream/iostream 类只能从streambuf构造
 4. streambuf 类无法直接构造
 5. istream/ostream->istringstream/ostringstream(stringstream)
 6. istream/ostream->ifstream/ofstream(fstream)
-#### 基本流状态管理 ####
+#### 基本流状态管理
 1. *good*
 2. *fail*
 3. *bad*
 4. *eof*
-#### 基本流opcode 管理 ###
+#### 基本流opcode 管理
 1. *ios::out*
 2. *ios::in*
 3. *ios::app*
 4. *trunc*
 5. *binary*
 
-### \<istream\> (基本输入流) ###
+### \<istream\> (基本输入流)
 #### 单字符操作 ####
 1. *get/get(c)* **获取单个字符(返回字符/返回流对象)**
 2. *peek* **获取单个字符, 但是保留指针位置**
 3. *unget* **撤销取走的字符**
 4. *putback(c)* **向流中添加元素**
 
-#### 行操作 ####
+#### 行操作
 5. *getline* **获取一行**
 6. *read* **读取指定数量的字符**
 
-### 流定位 ###
+### 流定位
 1. *seekg(offset, whence)*
 2. *tellg*
 3. *rdbuf(/\*streambuf\*/)* **返回/设置底层streambuf对象的指针**
 
-### \<ostream\> (基本输出流) ###
+### \<ostream\> (基本输出流)
 1. *endl* **\n**
 2. *ends* **\0**
 3. *put*
@@ -763,40 +763,40 @@ int main() {
 }
 ```
 
-### \<iostream\> ###
+### \<iostream\>
 1. 标准输入输出流对象(基本流对象)
 
-### \<strstream\> (继承自basic_iostream) ###
+### \<strstream\> (继承自basic_iostream)
 1. C-style 字符串流对象
 2. istrstream/ostrstream/strstream
 
-### \<fstream\> (继承自basic_iostream) ###
+### \<fstream\> (继承自basic_iostream)
 1. 文件输入输出流(上层流对象)
 2. *ofstream/ifstream/fstream*
-#### 支持方法 ####
+#### 支持方法
 1. *open* **绑定关联文件**
 2. *close* **解除关联文件绑定**
 3. *is_open* **判断是否绑定到文件**
 
-### \<sstream\> (继承自basic_iostream) 字符串流 ###
-#### 三类字符串流 ####
+### \<sstream\> (继承自basic_iostream) 字符串流 
+#### 三类字符串流 
 1. *istingstream*
 2. *ostringstream*
 3. *stringstream*
-#### 支持方法 ####
+#### 支持方法
 1. *str()* **从流对象返回字符串**
 2. *str("abc")* **设置流对象字符串**
 
-### \<iomanip\> ###
+### \<iomanip\>
 1. 拓展的输出格式化\<setxxx\>
 
-#### 支持方法 ####
+#### 支持方法
 1. *setw*
 2. *setfill*
 3. *setbase*
 4. *setprecision* **有效位数**
 
-#### I/O格式化 (ios_basic方法) ####
+#### I/O格式化 (ios_basic方法)
 5. *std::left*
 6. *std::right*
 7. *fixed* **设置精度为小数点后的保留位数**
@@ -805,8 +805,8 @@ int main() {
 10. *hexfloat*
 11. *defaultfloat*
 
-### \<cstdio\> 缓冲I/O ###
-#### 类型定义 ####
+### \<cstdio\> 缓冲I/O
+#### 类型定义 
 1. *fpos_t*
 2. *size_t*
 3. *NULL*
@@ -814,7 +814,7 @@ int main() {
 5. *BUFSIZ*  **默认缓冲区大小(8192)**
 6. *_IOFBF/_IOLBF/_IONBF* **三种缓冲类型**
 
-#### I/O 操作 ####
+#### I/O 操作
 1. *fopen*
 2. *freopen* **在已经打开的流上重新打开**
 3. *fclose*
@@ -834,7 +834,7 @@ int main() {
 16. *feof* **文件尾端检查**
 17. *perror* **打印errno错误信息**
 
-#### 文件操作 ####
+#### 文件操作
 1. *tmpnam* **获取一个临时文件名(随机文件名,部分随机或者完全随机)**
 2. *tmpfile* **由临时文件名生成临时文件**
 3. *mkdtemp* **替代接口, 直接按pattern创建临时目录**
@@ -842,12 +842,12 @@ int main() {
 5. *remove* **删除文件**
 6. *rename* **重命名文件**
 
-### <filesystem> ###
-#### path 类 ####
+### <filesystem> 
+#### path 类 
 1. path **路径描述类**
 2. path **类对象可以通过字符串创建**
 3. path 类对象可以处理目录、文件、扩展名的操作
-##### path 类支持的方法 #####
+##### path 类支持的方法 
 1. root_name
 2. *root_directory*
 3. *root_path* **返回根路径**
@@ -857,8 +857,8 @@ int main() {
 7. *stem* **返回主干名(除扩展外的其他部分)**
 8. *extension* **返回扩展名**
 
-#### C++ 通用的文件操作方法(基于path对象) ###
-##### 文件操作 #####
+#### C++ 通用的文件操作方法(基于path对象) 
+##### 文件操作 
 1. *current_path* **返回当前路径**
 2. *exists*       **判断文件是否存在**
 3. *file_size*    **返回文件大小**
@@ -872,7 +872,7 @@ int main() {
 11. create_directory **创建目录**
 12. create_directories **创建多级目录**
 
-##### 文件类型判断 #####
+##### 文件类型判断 
 1. *is_block_file*
 2. *is_character_file*
 3. *is_directory*
@@ -884,7 +884,7 @@ int main() {
 9. *is_symlink*
 10. *status_known*
 
-##### 文件的遍历 #####
+##### 文件的遍历 
 1. *directory_iterator(path&)* **获取指定路径下的文件列表对象**
 ```
 #include<iostream>
@@ -903,21 +903,21 @@ int main()
 }
 ```
 
-### \<regex\> ###
-#### 这则匹配相关的类 ####
+### \<regex\> 
+#### 这则匹配相关的类 
 1. regex
 2. smatch/cmatch **match_results<string>**
 3. ssub_match **sub_match<string>**
-#### 正则匹配相关的函数 ####
+#### 正则匹配相关的函数
 1. *regex_match*
 2. *regex_search*
 3. *regex_replace*
 
-### \<atomic\> ###
+### \<atomic\>
 1. 原子数据类型
 2. 数据维度的原子操作锁
 
-#### 常用的原子数据类型 ####
+#### 常用的原子数据类型
 1. atomic_bool
 2. atomic_int
 3. atomic_char
@@ -925,8 +925,8 @@ int main()
 5. atomic_uint
 6. atomic_ulong
 
-### \<thread\> ###
-#### thread 类 ####
+### \<thread\> 
+#### thread 类 
 1. *id* **共有成员**
 2. *get_id*
 3. *joinable*
@@ -934,53 +934,53 @@ int main()
 5. *detach*
 6. *swap* **交换两个thread对象**
 7. *yield* **交出CPU,由运行状态转换成就绪状态**
-#### this_thread ####
+#### this_thread 
 1. *get_id()*
 2. *sleep_for(duration)*
 3. *sleep_until(time_point)*
 
-### \<mutex\> ###
-#### 互斥量 ####
+### \<mutex\> 
+#### 互斥量 
 1. mutex **普通锁**
 2. timed_mutex **限时锁**
 3. recursive_mutex **递归锁**
 
-#### 高级锁对象 ####
+#### 高级锁对象 
 1. lock_guard **通用锁**
 2. unique_lock **用于条件变量** 
 
-#### 锁对象的操作 ####
+#### 锁对象的操作 
 1. *try_lock(lock0&, lock1&, lock2,...)*
 **依次加锁, 直到完成或加锁失败返回,成功返回-1，否则返回对应加锁失败的锁对象下标**
 2. *lock(lock0&, lock1&, lock2,...)*
 **依次加锁, 并且阻塞, 同时避免死锁**
 3. *call_once(once_flag& flag, func, args)*
 **仅调用一次**
-#### 限时锁提供额外操作方法 ####
+#### 限时锁提供额外操作方法 
 1. *try_lock_for*
 2. *try_lock_until*
 
-### semaphore ### 
+### semaphore  
 **信号量，通过许可的生产<release>和消费<acquire>来实现线程同步**
 **release和acquire可以在不同的线程独立进行,实现更精细的同步控制**
 1. *counting_semaphore*
 2. *binary_semaphore*
 
-#### 操作方法 ####
+#### 操作方法 
 1. *release* 
 2. *acquire* **block**
 3. *try_acquire* **no block**
 4. *try_acquire_for* **timed block**
 5. *try_acquire_until* **timed block**
 
-### \<shared_mutex\> ###
+### \<shared_mutex\> 
 **共享锁可以提供多种加锁状态**
 
-#### 两种共享锁 ####
+#### 两种共享锁 
 1. shared_mutex
 2. shared_timed_mutex*
 
-#### 操作方法 ####
+#### 操作方法 
 1. *lock*
 2. *try_lock*
 3. *unlock*
