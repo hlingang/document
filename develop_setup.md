@@ -13,6 +13,8 @@
 2. clangd 插件配置 (.vscode/settings.json)
 
 ```
+{
+	"editor.formatOnSave": true, // 保存文件自动格式化
 	"C_Cpp.intelliSenseEngine": "disabled", // 禁用ms c/c++ 提示和补全功能
 	"clangd.path": "clangd", // 直接使用环境变量
 	"clangd.arguments": [
@@ -46,6 +48,7 @@
 		"-I/usr/src/linux-headers-6.2.0-33-generic/arch/x86/include/generated",
 		"-I/usr/src/linux-headers-6.2.0-33-generic/arch/ia64/include",
 	]
+}
 ```
 		    
 ### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
