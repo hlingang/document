@@ -3,12 +3,13 @@
 ### vscode (开发工具)    [opensource]
 
 1. vscode 插件要求
-	- ssh-remote
-	- clang-format
-	- clangd
-	- cmake
-	- c/c++
-	- git
+	- ssh-remote     (远程连接)
+	- clang-format  （代码格式化）
+	- clangd         (代码补全及跳转)
+	- cmake          (cmake 编译相关)
+	- c/c++          (ms c/c++ 代码补全及跳转)
+	- git            (git 相关)
+	- python         (python 相关)
 
 2. clangd 插件配置 (.vscode/settings.json)
 
@@ -50,6 +51,11 @@
 	]
 }
 ```
+
+3. vscode ssh-remote 免密登录
+
+	- ssh-keygen -t rsa -C "email"
+	- cat vscode-host-pc/.ssh/id_rsa.pub > remote-server/.ssh/authorized_keys
 		    
 ### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
 
@@ -75,8 +81,19 @@
 2. virtualbox 虚拟机的显存必须设置到最大值
 
 
-### 其他软件配置
+### git 相关配置 ###
 
+- git config --global user.name "name"
+- git config --global user.email "email"
+- git config --global core.editor "vim"
+
+### pip 相关配置 ###
+
+- pip config set global.index-url "http://pypi.tuna.tsinghua.edu.cn/simple"
+- pip config set install.trusted-host "pypi.tuna.tsinghua.edu.cn"
+
+
+### 其他软件配置 ###                                 
 - Windterm (SSH 远程工具)                        [opensource]
 - Notepad++ (文本编辑工具)                       [opensource]
 - 7-zip                                         [opensource]
