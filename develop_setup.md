@@ -56,6 +56,15 @@
 
 	- ssh-keygen -t rsa -C "email"
 	- cat vscode-host-pc/.ssh/id_rsa.pub > remote-server/.ssh/authorized_keys
+
+4. 开启远程服务器 ssh 服务
+
+	- apt install openssh-server openssh-client
+	- service sshd start
+
+5. 关闭防火墙
+
+	- ufw disable(enable)
 		    
 ### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
 
