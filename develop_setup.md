@@ -89,8 +89,10 @@
 
 ### pip 相关配置 ###
 
+- apt install python3-pip
 - pip config set global.index-url "http://pypi.tuna.tsinghua.edu.cn/simple"
 - pip config set install.trusted-host "pypi.tuna.tsinghua.edu.cn"
+- pip install or python3 -m pip install target
 
 
 ### 其他软件配置 ###                                 
