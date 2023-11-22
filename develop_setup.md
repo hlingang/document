@@ -1,7 +1,17 @@
-开发环境配置
-------------------------------------------
-1. vscode(ssh-remote/c/c++/cmake/clangd 等插件)      [opensource]
-	1) clangd 插件配置 (settings.json)
+## 开发环境配置 ##
+------------------------------------
+### vscode (开发工具)    [opensource]
+
+1. vscode 插件要求
+	- ssh-remote
+	- clang-format
+	- clangd
+	- cmake
+	- c/c++
+	- git
+
+2. clangd 插件配置 (.vscode/settings.json)
+
 		    "C_Cpp.intelliSenseEngine": "disabled", // 禁用ms c/c++ 提示和补全功能
 			"clangd.path": "clangd", // 直接使用环境变量
 			"clangd.arguments": [
@@ -35,26 +45,34 @@
 				"-I/usr/src/linux-headers-6.2.0-33-generic/arch/x86/include/generated",
 				"-I/usr/src/linux-headers-6.2.0-33-generic/arch/ia64/include",
 			]
-2. Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
-	1) 网络连接方式的配置
-		- 网络地址转换 NAT, 通过host指定的端口访问虚拟机
-		- 桥接方式，虚拟机与host共享网络，需要手动配置虚拟机ipv4 地址(与host位于同一网段)，默认路由/DNS(与host相同)
-		- 设置静态ip
-		      network:
-			  version: 2
-			  renderer: NetworkManager
-			  ethernets:
-				enp0s3:
-				  dhcp4: no
-				  dhcp6: no
-				  addresses: [10.0.2.15/24]
-				  gateway4: 10.0.2.2
-				  nameservers:
-					addresses: [8.8.8.8, 114.114.114.114]
-	2) virtualbox 虚拟机的显存必须设置到最大值
-3. Windterm (SSH 远程工具)                       [opensource]
-4. Notepad++ (文本编辑工具)                      [opensource]
-5. 7-zip                                         [opensource]
-6. Visual studio community                       [opensource]
-8. WinMerge/Diffinity                            [opensource]
+### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
+
+1. 网络连接方式的配置
+
+	- 网络地址转换 NAT, 通过host指定的端口访问虚拟机
+	- 桥接方式，虚拟机与host共享网络，需要手动配置虚拟机ipv4 地址(与host位于同一网段)，默认路由/DNS(与host相同)
+	- 设置静态ip
+
+		network:
+		version: 2
+		renderer: NetworkManager
+		ethernets:
+		enp0s3:
+			dhcp4: no
+			dhcp6: no
+			addresses: [10.0.2.15/24]
+			gateway4: 10.0.2.2
+			nameservers:
+			addresses: [8.8.8.8, 114.114.114.114]
+
+2. virtualbox 虚拟机的显存必须设置到最大值
+
+
+### 其他软件配置
+
+- Windterm (SSH 远程工具)                        [opensource]
+- Notepad++ (文本编辑工具)                       [opensource]
+- 7-zip                                         [opensource]
+- Visual studio community                       [opensource]
+- WinMerge/Diffinity                            [opensource]
 
