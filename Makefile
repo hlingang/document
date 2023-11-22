@@ -1,23 +1,22 @@
-CC=gcc
+CC=g++
 CFLAGS=-g -ggdb -Wall -Werror
-SRC=$(wildcard ./*.c)
+SRC=$(wildcard ./*.cpp)
 OBJ=$(SRC:%.c=%.o)
-TARGET=out
+TARGET=test
 
 all:$(TARGET)
 
 $(TARGET):$(OBJ)
-	$(CC) -o $@ $^ -lpthread
+	$(CC) -o $@ $^
 
 %.o:%.c
-	$(CC) -c $(CFLAGS) -o $@ $<
+	$(CC) -c $(CFLAGS) -o $@ $< -lpthread
 
 
 .PHONY:clean
 
 clean:
 	rm -rf *.o
-	rm -rf *.txt
 	rm -rf *.bin
 	rm -rf $(TARGET)
 	
