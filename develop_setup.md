@@ -65,6 +65,12 @@
 5. 关闭防火墙
 
 	- ufw disable(enable)
+
+6. ubuntu-server 开启全屏
+	- vim /etc/default/grub
+	- set GRUB_CMDLINE_LINUX="vga=791" (设置tty默认分辨率为1024x768)
+	- update-grub
+	- reboot
 		    
 ### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
 
