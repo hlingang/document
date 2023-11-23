@@ -30,7 +30,7 @@
 		"--fallback-style=Webkit", // 默认格式化风格: 在没找到 .clang-format 文件时采用,可用的有 LLVM, Google, Chromium, Mozilla, Webkit, Microsoft, GNU
 		"--function-arg-placeholders=true", // 补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符，乃至函数末
 		"--header-insertion-decorators", // 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
-		"--header-insertion=iwyu", // 插入建议时自动引入头文件 iwyu
+		"--header-insertion=never", // 取消自动引入头文件, 启用的话赋值为 iwyu(include what you use)
 		"--include-cleaner-stdlib", // 为标准库头文件启用清理功能(不成熟!!!)
 		"--log=verbose", // 让 Clangd 生成更详细的日志
 		"--pch-storage=memory", // pch 优化的位置(Memory 或 Disk,前者会增加内存开销，但会提升性能)

@@ -25,9 +25,11 @@
 #include <thread>
 #include <unistd.h>
 #include <vector>
+#include <array>
 using namespace std;
 
 int main() {
+    std::array<int, 5> a;
     istringstream strins("abcde\nfghij");
     istream ins(strins.rdbuf());
     char rdbuf[128] = {0};
