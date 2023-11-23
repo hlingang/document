@@ -73,18 +73,19 @@
 	- 网络地址转换 NAT, 通过host指定的端口访问虚拟机
 	- 桥接方式，虚拟机与host共享网络，需要手动配置虚拟机ipv4 地址(与host位于同一网段)，默认路由/DNS(与host相同)
 	- 设置静态ip
+	- apt install net-tools; ifconfig; route -n;(查看ip和网关)
 	```
-		network:
+	network:
 		version: 2
 		renderer: NetworkManager
 		ethernets:
-		enp0s3:
-			dhcp4: no
-			dhcp6: no
-			addresses: [10.0.2.15/24]
-			gateway4: 10.0.2.2
-			nameservers:
-			addresses: [8.8.8.8, 114.114.114.114]
+			enp0s3:
+				dhcp4: no
+				dhcp6: no
+				addresses: [10.0.2.15/24]
+				gateway4: 10.0.2.2
+				nameservers:
+					addresses: [8.8.8.8, 114.114.114.114]
 	```
 
 2. virtualbox 虚拟机的显存必须设置到最大值
