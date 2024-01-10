@@ -10,6 +10,7 @@
 	- c/c++          (ms c/c++ 代码补全及跳转)
 	- git            (git 相关)
 	- python         (python 相关)
+	- Hex Editor     (二进制文件预览)
 
 2. clangd 插件配置 (.vscode/settings.json)
 
