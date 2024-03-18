@@ -13,40 +13,30 @@
 	- Hex Editor     (二进制文件预览)
 
 2. clangd 插件配置 (.vscode/settings.json)
-
+- 安装 clang/clangd/clang-format/clang-tidy (14 或者更高版本)
+- ubuntu18.04 安装最新版本 clang 参考: https://apt.llvm.org/
+- clangd 全局配置
 ```
-{
-	"editor.formatOnSave": true, // 保存文件自动格式化
-	"C_Cpp.intelliSenseEngine": "disabled", // 禁用ms c/c++ 提示和补全功能
-	"clangd.path": "clangd", // 直接使用环境变量
-	"clangd.arguments": [
-		"--all-scopes-completion", // 全局补全(补全建议会给出在当前作用域不可见的索引,插入后自动补充作用域标识符),例如在main()中直接写cout,即使没有`#include <iostream>`,也会给出`std::cout`的建议,配合"--header-insertion=iwyu",还可自动插入缺失的头文件
-		"--background-index", // 后台分析并保存索引文件
-		"--compile-commands-dir=${workspaceFolder}/build/", // 编译数据库(例如 compile_commands.json 文件)的目录位置
-		"--completion-parse=auto", // 当 clangd 准备就绪时，用它来分析建议
-		"--completion-style=detailed", // 建议风格：打包(重载函数只会给出一个建议);还可以设置为 detailed
-		"--fallback-style=LLVM", // 默认格式化风格: 在没找到 .clang-format 文件时采用,可用的有 LLVM, Google, Chromium, Mozilla, Webkit, Microsoft, GNU
-		"--function-arg-placeholders=true", // 补全函数时，将会给参数提供占位符，键入后按 Tab 可以切换到下一占位符，乃至函数末
-		"--header-insertion-decorators", // 输入建议中，已包含头文件的项与还未包含头文件的项会以圆点加以区分
-		"--header-insertion=never", // 取消自动引入头文件, 启用的话赋值为 iwyu(include what you use)
-		"--log=info", // 让 Clangd 生成更详细的日志
-		"--pch-storage=memory", // pch 优化的位置(Memory 或 Disk,前者会增加内存开销，但会提升性能)
-		"--pretty", // 输出的 JSON 文件更美观
-		"--ranking-model=decision_forest", // 建议的排序方案：hueristics (启发式), decision_forest (决策树)
-		"-j=12" // 同时开启的任务数量
-	],
-	// Clangd 找不到编译数据库(例如 compile_flags.json 文件)时采用的设置,缺陷是不能直接索引同一项目的不同文件,只能分析系统头文件、当前文件和include的文件
-	"clangd.fallbackFlags": [
-		"-std=c++11",
-		"-I${workspaceFolder}/src/include", //添加外部依赖 [不支持递归目录的搜索]
-		// 配置内核头文件索引位置
-		"-I/usr/src/linux-headers-6.2.0-33-generic/include",
-		"-I/usr/src/linux-headers-6.2.0-33-generic/usr/include",
-		"-I/usr/src/linux-headers-6.2.0-33-generic/arch/x86/include",
-		"-I/usr/src/linux-headers-6.2.0-33-generic/arch/x86/include/generated",
-		"-I/usr/src/linux-headers-6.2.0-33-generic/arch/ia64/include",
-	]
-}
+~/.config/clangd/config.yaml
+CompileFlags:
+    Add:
+      - -std=c++11
+      - -Wall
+      - -Werror
+      - -I./include
+
+Diagnostics:
+  ClangTidy:
+    Add:
+      - clang-analyzer-*
+      - modernize-*
+      - performance-*
+      - readability-*
+
+    Remove:
+      - modernize-use-trailing-return-type
+      - readability-magic-numbers
+      - readability-identifier-length
 ```
 
 3. vscode ssh-remote 免密登录
