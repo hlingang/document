@@ -34,7 +34,7 @@ Diagnostics:
       - readability-*
 
     Remove:
-	  - modernize-use-trailing-return-type
+	    - modernize-use-trailing-return-type
       - modernize-avoid-c-arrays
       - performance-no-int-to-ptr
       - readability-magic-numbers
