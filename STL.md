@@ -1022,6 +1022,7 @@ merge(_InputIterator1 __first1, _InputIterator1 __last1,
 ```
 - __set_union/set_intersection/set_difference
 - 两个序列的集合操作，并且保持原来的顺序
+```
 __set_union(_InputIterator1 __first1, _InputIterator1 __last1,
 		_InputIterator2 __first2, _InputIterator2 __last2,
 		_OutputIterator __result, _Compare __comp)
@@ -1404,7 +1405,6 @@ max_element(_ForwardIterator __first, _ForwardIterator __last,
     return _GLIBCXX_STD_A::__max_element(__first, __last,
             __gnu_cxx::__ops::__iter_comp_iter(__comp));
 }
-
 ```
 
 
