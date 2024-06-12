@@ -1,6 +1,6 @@
 CC=g++
 CFLAGS=-g -ggdb -Wall -Werror
-SRC=$(wildcard ./*.cpp)
+SRC=test.cpp
 OBJ=$(SRC:%.c=%.o)
 TARGET=test
 
