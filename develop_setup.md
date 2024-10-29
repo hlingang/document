@@ -48,22 +48,7 @@ Diagnostics:
 	- ssh-keygen -t rsa -C "email"
 	- cat vscode-host-pc/.ssh/id_rsa.pub > remote-server/.ssh/authorized_keys
 
-4. 开启远程服务器 ssh 服务
-
-	- apt install openssh-server openssh-client
-	- service sshd start
-
-5. 关闭防火墙
-
-	- ufw disable(enable)
-
-6. ubuntu-server 开启全屏
-	- vim /etc/default/grub
-	- set GRUB_CMDLINE_LINUX="vga=791" (设置tty默认分辨率为1024x768)
-	- update-grub
-	- reboot
-
-7. clang-format 配置
+4. clang-format 配置
 
 ```
 ${project}/.clang-format
@@ -245,29 +230,61 @@ UseTab:	Never
 
 ```
 		    
-### Virtualbox/ubuntu22.04 (虚拟机开发调试环境)   [opensource]
+### Virtualbox/Xubuntu (虚拟机开发调试环境)   [opensource]
 
-1. 网络连接方式的配置
+1. Linux 环境配置
+
+  - 安装 virtualbox + Xubuntu (opensource)
+  - 安装 virtualbox 虚拟化增强工具(该步骤将工具iso镜像载入cdrom)
+  - 通过文件管理器复制 虚拟化增强工具包到桌面，并运行相应的安装文件
+  - 配置 Xubuntu 国内源[https://mirrors.tuna.tsinghua.edu.cn/help/ubuntu/], 可用 [vi/nano] 编辑相应的配置文件。
+  - 安装相应的工具软件(vim/cmake/gcc/g++)
+
+2. Xubuntu 配置静态ip
 
 	- 网络地址转换 NAT, 通过host指定的端口访问虚拟机
-	- 桥接方式，虚拟机与host共享网络，需要手动配置虚拟机ipv4 地址(与host位于同一网段)，默认路由/DNS(与host相同)
 	- 设置静态ip
-	- apt install net-tools; ifconfig; route -n;(查看ip和网关)
+	- apt install net-tools; ip addr; route -n;(查看ip和网关)
+  - 配置主机和虚拟机之间的端口转发
 	```
-	network:
-		version: 2
-		renderer: NetworkManager
-		ethernets:
-			enp0s3:
-				dhcp4: no
-				dhcp6: no
-				addresses: [10.0.2.15/24]
-				gateway4: 10.0.2.2
-				nameservers:
-					addresses: [8.8.8.8, 114.114.114.114]
+  network:
+  version: 2
+  renderer: NetworkManager
+  ethernets:
+    enp0s3:
+      dhcp4: false
+      dhcp6: false
+      addresses: 
+        - 10.0.2.15/24  # ip address
+      routes:
+        - to: default
+          via: 10.0.2.2 # gateway
 	```
 
-2. virtualbox 虚拟机的显存必须设置到最大值
+3. virtualbox 虚拟机的显存配置为最大值(128M)
+
+4. 开启远程服务器 ssh 服务
+
+	- apt install openssh-server
+	- service ssh(sshd) start
+
+5. 关闭防火墙
+
+	- ufw disable(enable)
+
+6. samba 服务器 配置
+
+  - apt install samba
+  - smbpasswd -a 添加用户
+  - 配置共享文件夹(/etc/samba/smb.conf)
+```
+[huanglingang]
+   comment = shared folder
+   path = /home/huanglingang
+   browseable = yes
+   writeable = yes
+   create mask = 0755
+```
 
 
 ### git 相关配置 ###
