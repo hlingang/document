@@ -262,6 +262,10 @@ UseTab:	Never
       routes:
         - to: default
           via: 10.0.2.2 # gateway
+      nameservers:
+        addresses:
+          - 8.8.8.8
+          - 114.114.114.114
 	```
 
 3. virtualbox 虚拟机的显存配置为最大值(128M)
