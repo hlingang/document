@@ -292,6 +292,10 @@ UseTab:	Never
    writeable = yes
    create mask = 0755
 ```
+7. 通过 sshfs 实现文件夹共享(推荐)
+ - apt install sshfs
+ - windows 主机需要安装 winsshfs, winfsp
+ - 创建网络驱动器[\\sshfs.r\user@ip!port\path]
 
 
 ### git 相关配置 ###
